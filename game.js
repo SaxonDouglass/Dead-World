@@ -78,6 +78,9 @@ function resize() {
     
     canvas.width = newWidth;
     canvas.height = newHeight;
+    
+    stage.scaleX = newWidth / 480;
+    stage.scaleY = newHeight / 480;
 }
 
 function tick() {
