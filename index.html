@@ -1,0 +1,8 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io.connect('http://localhost');
+socket.on('screen', function (screen) {
+	console.log(screen);
+});
+socket.emit('getscreen');
+</script>
