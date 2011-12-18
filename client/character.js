@@ -1,5 +1,5 @@
 var character = function (spec, my) {
-    var that;
+    var that, carrying=0;
     my = my || {};
     
     that = new Container();
@@ -16,35 +16,50 @@ var character = function (spec, my) {
         g.beginFill(Graphics.getRGB(128, 128, 128));
         g.drawCircle(0, 0, 0.5);
     }());
+    
+    that.pickup = function() {
+        var tile = world.getTile(this.x, this.y);
+        if (carrying == 0 && tiledata[tile].isCarryable) {
+            carrying = tile;
+            world.setTile(this.x, this.y, 0);
+        } else {
+            world.setTile(this.x, this.y, carrying);
+            carrying = tile;
+        }
+    }
 
     that.tick = function() {
-        if(keyLeft) {
+        if (keyLeft) {
             if (world.collideRect(this.x - 0.6, this.y - 0.4, 0.8, 0.8)) {
                 this.x = Math.floor(this.x) + 0.5;
             } else {
                 this.x -= 0.2;
             }
         }
-        if(keyRight) {
+        if (keyRight) {
             if (world.collideRect(this.x - 0.2, this.y - 0.4, 0.8, 0.8)) {
                 this.x = Math.floor(this.x) + 0.5;
             } else {
                 this.x += 0.2;
             }
         }
-        if(keyUp) {
+        if (keyUp) {
             if (world.collideRect(this.x - 0.4, this.y - 0.6, 0.8, 0.8)) {
                 this.y = Math.floor(this.y) + 0.5;
             } else {
                 this.y -= 0.2;
             }
         }
-        if(keyDown) {
+        if (keyDown) {
             if (world.collideRect(this.x - 0.4, this.y - 0.2, 0.8, 0.8)) {
                 this.y = Math.floor(this.y) + 0.5;
             } else {
                 this.y += 0.2;
             }
+        }
+        if (keyPickup) {
+            keyPickup = false; // on press
+            this.pickup();
         }
         
         if(this.x < 0) {

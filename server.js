@@ -75,6 +75,17 @@ function handler(req, res) {
 				res.writeHead(200, { 'Content-Type': 'text/javascript' });
 				res.end(data, 'utf-8');
 			});
+	} else if (req.url == "/tiledata.js") {
+		fs.readFile(__dirname + '/client/tiledata.js',
+			function (err, data) {
+				if (err) {
+					res.writeHead(500);
+					return res.end('Error loading tiledata.js');
+				}
+				
+				res.writeHead(200, { 'Content-Type': 'text/javascript' });
+				res.end(data, 'utf-8');
+			});
 	} else if (req.url == "/easel.js") {
 		fs.readFile(__dirname + '/client/easel.js',
 					function (err, data) {
