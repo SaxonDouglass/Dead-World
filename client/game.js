@@ -31,7 +31,7 @@ jQuery(document).ready(function () {
         world.tiles = screen.overworld.data;
         world.update();
 	});
-	socket.emit('getscreen');
+	socket.emit('newscreen');
 
     player = new Player();
     stage.addChild(player);
