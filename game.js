@@ -32,7 +32,7 @@ jQuery(document).ready(function () {
 			}
 		}
 	});
-	socket.emit('getscreen');
+	socket.emit('newscreen');
 	
 	resize();
 	window.addEventListener('resize', resize, false);
