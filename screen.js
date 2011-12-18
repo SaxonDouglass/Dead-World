@@ -26,13 +26,14 @@ exports.free = function(s) {
 	if(s instanceof Array) {
 		s = s.slice(0);
 		for(i = 0; i < s.length; i++) {
-			j = i + Math.floor(Math.random()*s.length - i);
+			j = i + Math.floor(Math.random()*(s.length - i));
 			queue.push(s[j]);
 			s[j] = s[i];
 		}
 	} else {
 		queue.push(s);
 	}
+	console.log(queue);
 }
 
 exports.get = function(id) {
