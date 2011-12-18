@@ -108,6 +108,17 @@ function handler(req, res) {
 						res.writeHead(200);
 						res.end(data);
 					});
+	} else if (req.url == "/img/character.png") {
+		fs.readFile(__dirname + '/client/img/character.png',
+					function (err, data) {
+						if (err) {
+							res.writeHead(500);
+							return res.end('Error loading character.png');
+						}
+
+						res.writeHead(200);
+						res.end(data);
+					});
 	}
 }
 

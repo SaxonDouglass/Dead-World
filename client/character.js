@@ -4,18 +4,26 @@ var character = function (spec, my) {
     
     that = new Container();
     
-    that.shape = new Shape();
     that.x = 7;
     that.y = 7;
 	that.health = 10;
 	that.invuln = 0;
-    that.addChild(that.shape);
-    
-    (function () {
-        var g = that.shape.graphics;
-        g.beginFill(Graphics.getRGB(128, 128, 128));
-        g.drawCircle(0, 0, 0.5);
-    }());
+
+	var img = new Image();
+	img.onload = function() {
+		var sprite = new SpriteSheet({
+			images: [img],
+			frames: {width: 48, height: 48},
+		});
+		var anim = new BitmapAnimation(sprite);
+		anim.scaleX = 1/48;
+		anim.scaleY = 1/48;
+		anim.regX = 24;
+		anim.regY = 24;
+		anim.gotoAndPlay(1);
+		that.addChild(anim);
+	}
+	img.src = "/img/character.png";
     
     that.pickup = function() {
         var tile = world.getTile(this.x, this.y);
