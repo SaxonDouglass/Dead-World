@@ -23,59 +23,10 @@ var keyRight = false;
 jQuery(document).ready(function () {
 	canvas = jQuery('#gameCanvas').get(0);
 	stage = new Stage(canvas);
-	world = new Container();
+
+	world = new World();
     stage.addChild(world);
 
-    world.width = 15;
-    world.height = 15;
-    world.tiles = [[1,1,1,1,1, 1,0,0,0,1, 1,1,1,1,1,],
-                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                  [1,0,0,1,0, 0,0,0,0,0, 0,0,0,0,1,],
-                  [1,0,1,1,1, 0,0,0,0,0, 0,0,0,0,1,],
-                  [1,0,0,1,0, 0,0,0,0,0, 0,0,0,0,1,],
-                  
-                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                  [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                  [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                  [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                  [1,0,0,0,0, 0,0,0,0,1, 1,1,0,0,1,],
-                  
-                  [1,0,0,0,0, 0,0,0,0,1, 1,1,0,0,1,],
-                  [1,0,0,0,0, 0,0,0,0,1, 1,1,0,0,1,],
-                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                  [1,1,1,1,1, 1,0,0,0,1, 1,1,1,1,1,],
-    ];
-    
-    world.collidePoint = function (x, y) {
-        x = Math.floor(Math.max(0, Math.min(world.width - 1, x)));
-        y = Math.floor(Math.max(0, Math.min(world.height - 1, y)));
-        return(this.tiles[x][y] > 0);
-    }
-    
-    world.collideRect = function (x, y, w, h) {
-        return(this.collidePoint(x, y) || this.collidePoint(x + w, y) ||
-               this.collidePoint(x, y + h) || this.collidePoint(x + w, y + h));
-    }
-    
-    for(var y = 0; y < 15; ++y) {
-        for(var x = 0; x < 15; ++x) {
-            var g = new Graphics();
-            g.setStrokeStyle(1);
-            if(world.tiles[x][y] == 0) {
-                g.beginFill(Graphics.getRGB(64, 255, 64));
-            } else {
-                g.beginFill(Graphics.getRGB(128, 128, 64));
-            }
-            g.drawRect(0,0,1,1);
-            var s = new Shape(g);
-            s.x = x;
-            s.y = y;
-            s.cache(0, 0, 1, 1);
-            stage.addChild(s);
-        }
-    }
-    
     player = new Player();
     stage.addChild(player);
     
