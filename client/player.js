@@ -59,16 +59,16 @@
         }
         
         if(this.x < 0) {
-            socket.emit('getscreen');
+            socket.emit('newscreen');
             this.x = world.width;
         } else if(this.x > world.width) {
-            socket.emit('getscreen');
+            socket.emit('newscreen');
             this.x = 0;
         } else if(this.y < 0) {
-            socket.emit('getscreen');
+            socket.emit('newscreen');
             this.y = world.height;
         } else if(this.y > world.height) {
-            socket.emit('getscreen');
+            socket.emit('newscreen');
             this.y = 0;
         }
     }
