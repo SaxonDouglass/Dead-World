@@ -29,11 +29,11 @@ var character = function (spec, my) {
         var tx = Math.floor(this.x);
         var ty = Math.floor(this.y);
         
-        var input = [[33, 0, 0, 0, 33],
+        var input = [[0, 0, 0, 0, 0],
                      [0, 0, 0, 0, 0],
                      [0, 0, 33, 0, 0],
                      [0, 0, 0, 0, 0],
-                     [33, 0, 0, 0, 33]];
+                     [33, 0, 33, 0, 33]];
         
         var output = [[32, 32, 32, 32, 32],
                       [32, 0, 0, 0, 32],
@@ -44,18 +44,18 @@ var character = function (spec, my) {
         if (tx > 2 || tx < world.width - 2 ||
             ty > 2 || ty < world.height - 2) {
             var valid = true;
-            for (var i = tx - 2; i <= tx + 2; ++i) {
-                for (var j = ty - 2; j <= ty + 2; ++j) {
-                    if (world.getTile(i, j) != input[i][j]) {
+            for (var i = 0; i < 5; ++i) {
+                for (var j = 0; j < 5; ++j) {
+                    if (world.getTile(tx-2+i, ty-2+j) != input[j][i]) {
                         valid = false;
                     }
                 }
             }
             
             if (valid) {
-                for (var i = tx - 2; i <= tx + 2; ++i) {
-                    for (var j = ty - 2; j <= ty + 2; ++j) {
-                        world.setTile(i, j, output[i][j]);
+                for (var i = 0; i < 5; ++i) {
+                    for (var j = 0; j < 5; ++j) {
+                        world.setTile(tx-2+i, ty-2+j, output[j][i]);
                     }
                 }
             }
