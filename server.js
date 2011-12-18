@@ -53,6 +53,17 @@ function handler(req, res) {
 				res.writeHead(200, { 'Content-Type': 'text/javascript' });
 				res.end(data, 'utf-8');
 			});
+	} else if (req.url == "/monster.js") {
+		fs.readFile(__dirname + '/client/monster.js',
+			function (err, data) {
+				if (err) {
+					res.writeHead(500);
+					return res.end('Error loading monster.js');
+				}
+				
+				res.writeHead(200, { 'Content-Type': 'text/javascript' });
+				res.end(data, 'utf-8');
+			});
 	} else if (req.url == "/world.js") {
 		fs.readFile(__dirname + '/client/world.js',
 			function (err, data) {
@@ -111,6 +122,11 @@ io.sockets.on('connection', function(socket) {
 		delete p;
 	});
 
+	socket.on('freescreens', function() {
+		console.log("free");
+		screen.free(p.die());
+	});
+
 	socket.on('newscreen', function() {
 		var s = screen.random();
 		p.addScreen(s.id);
@@ -120,12 +136,20 @@ io.sockets.on('connection', function(socket) {
 	socket.on('getscreen', function(id) {
 		if(p.hasScreen(id)) {
 			socket.emit('screen', screen.get(id));
+		} else {
+			console.log("Illegal set");
 		}
 	});
 
 	socket.on('setscreen', function(s) {
-		if(p.hasScreen(s.id)) {
-			screen.set(s);
+		if(s) {
+			if(p.hasScreen(s.id)) {
+				screen.set(s);
+			} else {
+				console.log("Illegal set");
+			}
+		} else {
+			console.log("Empty set");
 		}
 	});
 });

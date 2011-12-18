@@ -7,6 +7,8 @@ var character = function (spec, my) {
     that.shape = new Shape();
     that.x = 7;
     that.y = 7;
+	that.health = 10;
+	that.invuln = 0;
     that.addChild(that.shape);
     
     (function () {
@@ -73,7 +75,24 @@ var character = function (spec, my) {
             world.moveTo(world.x(), world.y() + 1);
             this.y = 0;
         }
+
+		if(this.invuln) {
+			this.invuln--;
+		}
     }
+
+	that.hit = function() {
+		if(!this.invuln) {
+			this.health--;
+			this.invuln = 20;
+			if(this.health <= 0) {
+				this.health = 10;
+				this.x = 7;
+				this.y = 7;
+				world.reset();
+			}
+		}
+	}
     
     return that;
 }
