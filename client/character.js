@@ -41,8 +41,8 @@ var character = function (spec, my) {
                       [32, 0, 0, 0, 32],
                       [32, 32, 0, 32, 32]];
         
-        if (tx > 2 || tx < world.width - 2 ||
-            ty > 2 || ty < world.height - 2) {
+        if (tx > 2 || tx < world.width - 3 ||
+            ty > 2 || ty < world.height - 3) {
             var valid = true;
             for (var i = 0; i < 5; ++i) {
                 for (var j = 0; j < 5; ++j) {
