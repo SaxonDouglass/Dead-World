@@ -1,68 +1,47 @@
-(function (window) {
+var world = function (spec, my) {
+    var that, x=0, y=0, map={};
+    my = my || {};
+    
+    that = new Container();
 
-    function World() {
-        this.init();
+    that.width = 15;
+    that.height = 15;
+    that.screen = null;
+    
+    that.collidePoint = function (x, y) {
+        if (this.screen) {
+            x = Math.floor(Math.max(0, Math.min(this.width - 1, x)));
+            y = Math.floor(Math.max(0, Math.min(this.height - 1, y)));
+            return(this.screen.overworld.data[x][y] > 0);
+        }
     }
     
-    World.prototype = new Container();
-
-    // public properties:
-    World.prototype.tiles = null;
-	World.prototype.width = 15;
-	World.prototype.height = 15;
-
-    World.prototype.Container_initialize = World.prototype.initialize;    
-
-    World.prototype.init = function() {
-        this.Container_initialize();
-        
-        this.width = 15;
-        this.height = 15;
-        
-        this.tiles = [[0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                      [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-        ];
-        
-        this.update();
-    }
-    
-    World.prototype.collidePoint = function (x, y) {
-        x = Math.floor(Math.max(0, Math.min(this.width - 1, x)));
-        y = Math.floor(Math.max(0, Math.min(this.height - 1, y)));
-        return(this.tiles[x][y] > 0);
-    }
-    
-    World.prototype.collideRect = function (x, y, w, h) {
+    that.collideRect = function (x, y, w, h) {
         return(this.collidePoint(x, y) || this.collidePoint(x + w, y) ||
                this.collidePoint(x, y + h) || this.collidePoint(x + w, y + h));
     }
     
-    World.prototype.update = function () {
+    that.moveTo = function (newX, newY) {
+        x = newX;
+        y = newY;
+        
+        this.screen = map[x + ',' + y];
+        if (this.screen) {
+	        this.update();
+	    } else {
+	        socket.emit('newscreen');
+	    }	    
+    }
+    
+    that.update = function () {
         this.removeAllChildren();
         for(var y = 0; y < 15; ++y) {
             for(var x = 0; x < 15; ++x) {
                 var g = new Graphics();
                 g.setStrokeStyle(1);
-                if(this.tiles[x][y] == 0) {
-                    console.log('not wall');
+                if(this.screen.overworld.data[x][y] == 0) {
                     g.beginFill(Graphics.getRGB(64, 255, 64));
                 } else {
-                    console.log('wall');
                     g.beginFill(Graphics.getRGB(128, 128, 64));
                 }
                 g.drawRect(0,0,1,1);
@@ -74,6 +53,24 @@
             }
         }
     }
+    
+    that.x = function () {
+        return x;
+    }
+    
+    that.y = function () {
+        return y;
+    }
+    
+    socket.on('screen', function (newScreen) {
+        if (!that.screen) {
+            that.screen = newScreen;
+            that.update();
+            map[x + ',' + y] = newScreen;
+        }
+	});
+    socket.emit('newscreen');
+    
+    return that;
+}
 
-window.World = World;
-}(window));

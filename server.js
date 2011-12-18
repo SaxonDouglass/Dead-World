@@ -42,12 +42,12 @@ function handler(req, res) {
 				res.writeHead(200, { 'Content-Type': 'text/javascript' });
 				res.end(data, 'utf-8');
 			});
-	} else if (req.url == "/player.js") {
-		fs.readFile(__dirname + '/client/player.js',
+	} else if (req.url == "/character.js") {
+		fs.readFile(__dirname + '/client/character.js',
 			function (err, data) {
 				if (err) {
 					res.writeHead(500);
-					return res.end('Error loading player.js');
+					return res.end('Error loading character.js');
 				}
 				
 				res.writeHead(200, { 'Content-Type': 'text/javascript' });

@@ -25,15 +25,10 @@ jQuery(document).ready(function () {
 	canvas = jQuery('#gameCanvas').get(0);
 	stage = new Stage(canvas);
 
-    world = new World();
+    world = world();
     stage.addChild(world);
-    socket.on('screen', function (screen) {
-        world.tiles = screen.overworld.data;
-        world.update();
-	});
-	socket.emit('newscreen');
 
-    player = new Player();
+    player = character();
     stage.addChild(player);
     
     resize();
