@@ -38,8 +38,9 @@ jQuery(document).ready(function () {
     player = character();
     stage.addChild(player);
 
-	stage.addChild(monster({x: 1, y: 7, dir: DOWN}))
-    
+	monsterContainer = new Container();
+	stage.addChild(monsterContainer);
+
     resize();
     window.addEventListener('resize', resize, false);
     window.addEventListener('orientationchange', resize, false);

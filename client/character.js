@@ -6,6 +6,7 @@ var character = function (spec, my) {
     
     that.x = 7;
     that.y = 7;
+	that.dir = DOWN;
 	that.health = 10;
 	that.invuln = 0;
 

@@ -7,7 +7,7 @@ var monster = function(spec, my) {
     that.shape = new Shape();
     that.x = spec.x;
     that.y = spec.y;
-	that.dir = spec.dir;
+	that.dir = spec.dir || UP;
     that.addChild(that.shape);
     
     (function () {

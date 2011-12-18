@@ -1,9 +1,9 @@
 var world = function (spec, my) {
-    var that, x=0, y=0, map={}, tiles;
+    var that, x=0, y=0, map={}, tiles, oldScreen = -1;
     my = my || {};
 
 	var img = new Image();
-	var sheet;
+	var sheet = null;
 	img.onload = function(){
 		sheet = new SpriteSheet( {
 			images: [img],
@@ -21,7 +21,8 @@ var world = function (spec, my) {
 
     that.width = 15;
     that.height = 15;
-    that.screen = null;
+    that.screen;
+	that.monsters = [];
     
     that.collidePoint = function (x, y) {
         if (this.screen) {
@@ -63,6 +64,9 @@ var world = function (spec, my) {
 		socket.emit('freescreens');
 		map = {}
 
+		this.monsters = [];
+		oldScreen = -1;
+
 		this.moveTo(0,0);
 	}
     
@@ -72,17 +76,32 @@ var world = function (spec, my) {
     }
     
     that.update = function () {
-		if(this.screen && tiles) {
-			this.removeAllChildren();
-			for(var y = 0; y < 15; ++y) {
-				for(var x = 0; x < 15; ++x) {
-					var b = new BitmapAnimation(sheet);
-					b.gotoAndStop(this.screen.overworld.data[x][y]);
-					b.scaleX = 1/16;
-					b.scaleY = 1/16;
-					b.x = x;
-					b.y = y;
-					this.addChild(b);
+		if(this.screen) {
+			if(tiles) {
+				this.removeAllChildren();
+				for(var y = 0; y < 15; ++y) {
+					for(var x = 0; x < 15; ++x) {
+						var b = new BitmapAnimation(sheet);
+						b.gotoAndStop(this.screen.overworld.data[x][y]);
+						b.scaleX = 1/16;
+						b.scaleY = 1/16;
+						b.x = x;
+						b.y = y;
+						this.addChild(b);
+					}
+				}
+
+				if(this.screen.monsters && oldScreen != this.screen.id) {
+					oldScreen = this.screen.id;
+					this.monsters = [];
+					for(var i = 0; i < this.screen.monsters.length; ++i) {
+						this.monsters[i] = monster(this.screen.monsters[i]);
+						this.addChild(this.monsters[i]);
+					}
+				} else {
+					for(var i = 0; i < this.monsters.length; ++i) {
+						this.addChild(this.monsters[i]);
+					}
 				}
 			}
 		}
