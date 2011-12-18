@@ -1,115 +1,46 @@
-var app = require('http').createServer(handler),
+var app = require('express').createServer(),
     io = require('socket.io').listen(app),
     fs = require('fs');
 
 var player = require('./player.js'),
     screen = require('./screen.js');
 
+var serveFile = function (req, res, path, mimetype) {
+    fs.readFile(__dirname + path + req.params.file + '.' + req.params.ext,
+        function (err, data) {
+            if (err) {
+            res.writeHead(500);
+            return res.end('Error loading ' + req.params.file+'.'+req.params.ext);
+		}
+		
+		var mimetype = '';
+		if (req.params.ext == 'html') mimetype = 'text/html';
+		if (req.params.ext == 'css') mimetype = 'text/css';
+		if (req.params.ext == 'js') mimetype = 'text/javascript';
+		if (req.params.ext == 'png') mimetype = 'image/png';
+		res.writeHead(200, { 'Content-Type': mimetype });
+		res.end(data, 'utf-8');
+	})
+};
+
+app.get('/', function(req, res){
+    console.log(req.url);
+    req.params.file = 'index';
+    req.params.ext = 'html';
+    serveFile(req, res, '/client/');
+});
+
+app.get('/:file.:ext', function(req, res){
+    console.log(req.url);
+    serveFile(req, res, '/client/');
+});
+
+app.get('/img/:file.:ext', function(req, res){
+    console.log(req.url);
+    serveFile(req, res, '/client/img/');
+});
+
 app.listen(80);
-
-function handler(req, res) {
-	console.log(req.url);
-	if(req.url == "/") {
-		fs.readFile(__dirname + '/client/index.html',
-					function (err, data) {
-						if (err) {
-							res.writeHead(500);
-							return res.end('Error loading index.html');
-						}
-						
-						res.writeHead(200, { 'Content-Type': 'text/html' });
-						res.end(data, 'utf-8');
-					});
-	} else if (req.url == "/style.css") {
-		fs.readFile(__dirname + '/client/style.css',
-					function (err, data) {
-						if (err) {
-							res.writeHead(500);
-							return res.end('Error loading game.js');
-						}
-						
-						res.writeHead(200, { 'Content-Type': 'text/css' });
-						res.end(data, 'utf-8');
-					});
-	} else if (req.url == "/game.js") {
-		fs.readFile(__dirname + '/client/game.js',
-			function (err, data) {
-				if (err) {
-					res.writeHead(500);
-					return res.end('Error loading game.js');
-				}
-				
-				res.writeHead(200, { 'Content-Type': 'text/javascript' });
-				res.end(data, 'utf-8');
-			});
-	} else if (req.url == "/character.js") {
-		fs.readFile(__dirname + '/client/character.js',
-			function (err, data) {
-				if (err) {
-					res.writeHead(500);
-					return res.end('Error loading character.js');
-				}
-				
-				res.writeHead(200, { 'Content-Type': 'text/javascript' });
-				res.end(data, 'utf-8');
-			});
-	} else if (req.url == "/monster.js") {
-		fs.readFile(__dirname + '/client/monster.js',
-			function (err, data) {
-				if (err) {
-					res.writeHead(500);
-					return res.end('Error loading monster.js');
-				}
-				
-				res.writeHead(200, { 'Content-Type': 'text/javascript' });
-				res.end(data, 'utf-8');
-			});
-	} else if (req.url == "/world.js") {
-		fs.readFile(__dirname + '/client/world.js',
-			function (err, data) {
-				if (err) {
-					res.writeHead(500);
-					return res.end('Error loading world.js');
-				}
-				
-				res.writeHead(200, { 'Content-Type': 'text/javascript' });
-				res.end(data, 'utf-8');
-			});
-	} else if (req.url == "/tiledata.js") {
-		fs.readFile(__dirname + '/client/tiledata.js',
-			function (err, data) {
-				if (err) {
-					res.writeHead(500);
-					return res.end('Error loading tiledata.js');
-				}
-				
-				res.writeHead(200, { 'Content-Type': 'text/javascript' });
-				res.end(data, 'utf-8');
-			});
-	} else if (req.url == "/easel.js") {
-		fs.readFile(__dirname + '/client/easel.js',
-					function (err, data) {
-						if (err) {
-							res.writeHead(500);
-							return res.end('Error loading easel.js');
-						}
-
-						res.writeHead(200, { 'Content-Type': 'text/javascript' });
-						res.end(data, 'utf-8');
-					});
-	} else if (req.url == "/img/tileset.png") {
-		fs.readFile(__dirname + '/client/img/tileset.png',
-					function (err, data) {
-						if (err) {
-							res.writeHead(500);
-							return res.end('Error loading tileset.png');
-						}
-
-						res.writeHead(200);
-						res.end(data);
-					});
-	}
-}
 
 var screens;
 
