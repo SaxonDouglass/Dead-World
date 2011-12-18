@@ -37,7 +37,11 @@ var world = function (spec, my) {
     }
     
     that.moveTo = function (newX, newY) {
-        x = newX;
+		if(this.screen) {
+			socket.emit('setscreen',this.screen);
+		}
+
+		x = newX;
         y = newY;
         
         this.screen = map[x + ',' + y];
@@ -47,6 +51,16 @@ var world = function (spec, my) {
 	        socket.emit('newscreen');
 	    }	    
     }
+
+	that.reset = function() {
+		socket.emit('setscreen',this.screen);
+		this.screen = null;
+		
+		socket.emit('freescreens');
+		map = {}
+
+		this.moveTo(0,0);
+	}
     
     that.update = function () {
 		if(this.screen && tiles) {
@@ -55,7 +69,6 @@ var world = function (spec, my) {
 				for(var x = 0; x < 15; ++x) {
 					var b = new BitmapAnimation(sheet);
 					b.gotoAndStop(this.screen.overworld.data[x][y]);
-					b.snapToPixel = false;
 					b.scaleX = 1/16;
 					b.scaleY = 1/16;
 					b.x = x;

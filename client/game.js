@@ -30,6 +30,8 @@ jQuery(document).ready(function () {
 
     player = character();
     stage.addChild(player);
+
+	stage.addChild(monster({x: 1, y: 7, dir: DOWN}))
     
     resize();
     window.addEventListener('resize', resize, false);
