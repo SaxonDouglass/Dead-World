@@ -1,27 +1,22 @@
-var tiledata = function (spec, my) {
-    var that;
-    my = my || {};
+var tiledata = [];
 
-    that = {};
-
-    that[0] = {
-        text: 'air';
-        isPickupable: false;
-        isSolid: false;
-    }
+tiledata[0] = {
+    'label': 'air',
+    'isCarryable': false,
+    'isSolid': false,
+};
     
-    that[1] = {
-        text: 'rock';
-        isPickupable: true;
-        isSolid: false;
-    }
-    
-    that[2] = {
-        text: 'wall';
-        isPickupable: false;
-        isSolid: true;
-    }
+tiledata[1] = {
+    'label': 'rock',
+    'isCarryable': true,
+    'isSolid': false,
+};
 
-    return that;
+for (var i = 2; i < 16; ++i) {
+    tiledata[i] = {
+        'label': 'wall',
+        'isCarryable': false,
+        'isSolid': true,
+    };
 }
 

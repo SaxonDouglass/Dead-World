@@ -27,7 +27,7 @@ var world = function (spec, my) {
         if (this.screen) {
             x = Math.floor(Math.max(0, Math.min(this.width - 1, x)));
             y = Math.floor(Math.max(0, Math.min(this.height - 1, y)));
-            return(this.screen.overworld.data[x][y] > 1);
+            return(tiledata[this.screen.overworld.data[x][y]].isSolid);
         }
     }
     

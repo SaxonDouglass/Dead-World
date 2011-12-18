@@ -16,13 +16,13 @@ var character = function (spec, my) {
     }());
     
     that.pickup = function() {
-        if (carrying == 0) {
-            carrying = world.getTile(this.x, this.y);
+        var tile = world.getTile(this.x, this.y);
+        if (carrying == 0 && tiledata[tile].isCarryable) {
+            carrying = tile;
             world.setTile(this.x, this.y, 0);
         } else {
-            var other = world.getTile(this.x, this.y);
             world.setTile(this.x, this.y, carrying);
-            carrying = other;
+            carrying = tile;
         }
     }
 
