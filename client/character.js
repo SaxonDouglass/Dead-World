@@ -17,6 +17,43 @@ var character = function (spec, my) {
         g.drawCircle(0, 0, 0.5);
     }());
     
+    that.build = function() {
+        var tx = Math.floor(this.x);
+        var ty = Math.floor(this.y);
+        
+        var input = [[33, 0, 0, 0, 33],
+                     [0, 0, 0, 0, 0],
+                     [0, 0, 33, 0, 0],
+                     [0, 0, 0, 0, 0],
+                     [33, 0, 0, 0, 33]];
+        
+        var output = [[32, 32, 32, 32, 32],
+                      [32, 0, 0, 0, 32],
+                      [32, 0, 0, 0, 32],
+                      [32, 0, 0, 0, 32],
+                      [32, 32, 0, 32, 32]];
+        
+        if (tx > 2 || tx < world.width - 2 ||
+            ty > 2 || ty < world.height - 2) {
+            var valid = true;
+            for (var i = tx - 2; i <= tx + 2; ++i) {
+                for (var j = ty - 2; j <= ty + 2; ++j) {
+                    if (world.getTile(i, j) != input[i][j]) {
+                        valid = false;
+                    }
+                }
+            }
+            
+            if (valid) {
+                for (var i = tx - 2; i <= tx + 2; ++i) {
+                    for (var j = ty - 2; j <= ty + 2; ++j) {
+                        world.setTile(i, j, output[i][j]);
+                    }
+                }
+            }
+        }
+    }   
+    
     that.pickup = function() {
         var tile = world.getTile(this.x, this.y);
         if (carrying == 0 && tiledata[tile].isCarryable) {
@@ -25,6 +62,7 @@ var character = function (spec, my) {
         } else {
             world.setTile(this.x, this.y, carrying);
             carrying = tile;
+            this.build();
         }
     }
 
