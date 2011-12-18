@@ -57,17 +57,17 @@ var monster = function(spec, my) {
             }
         }
         
-        if(this.x < 0) {
-            this.x = 0;
+        if(this.x - 0.5 < 0) {
+            this.x = 0.5;
 			this.turn();
-        } else if(this.x > world.width) {
-            this.x = world.width;
+        } else if(this.x + 0.5 > world.width) {
+            this.x = world.width - 0.5;
 			this.turn();
-        } else if(this.y < 0) {
-            this.y = 0;
+        } else if(this.y - 0.5 < 0) {
+            this.y = 0.5;
 			this.turn();
-        } else if(this.y > world.height) {
-            this.y = world.height;
+        } else if(this.y + 0.5 > world.height) {
+            this.y = world.height - 0.5;
 			this.turn();
         }
 
