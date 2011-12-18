@@ -1,8 +1,3 @@
-var UP = 0;
-var LEFT = 1;
-var DOWN = 2;
-var RIGHT = 3;
-
 var monster = function(spec, my) {
 	var that;
     my = my || {};
