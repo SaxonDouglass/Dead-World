@@ -27,7 +27,7 @@ var world = function (spec, my) {
         if (this.screen) {
             x = Math.floor(Math.max(0, Math.min(this.width - 1, x)));
             y = Math.floor(Math.max(0, Math.min(this.height - 1, y)));
-            return(this.screen.overworld.data[x][y] > 0);
+            return(this.screen.overworld.data[x][y] > 1);
         }
     }
     
@@ -36,7 +36,13 @@ var world = function (spec, my) {
                this.collidePoint(x, y + h) || this.collidePoint(x + w, y + h));
     }
     
+    that.getTile = function (x, y) {
+        return this.screen.overworld.data[Math.floor(x)][Math.floor(y)];
+    }
+    
     that.moveTo = function (newX, newY) {
+        socket.emit('setscreen', this.screen);
+    
         x = newX;
         y = newY;
         
@@ -46,6 +52,11 @@ var world = function (spec, my) {
 	    } else {
 	        socket.emit('newscreen');
 	    }	    
+    }
+    
+    that.setTile = function (x, y, tile) {
+        this.screen.overworld.data[Math.floor(x)][Math.floor(y)] = tile;
+        world.update();
     }
     
     that.update = function () {
