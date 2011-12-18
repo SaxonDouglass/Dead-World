@@ -12,7 +12,7 @@ jQuery.noConflict();
 
 var canvas;
 var stage;
-var cell;
+var world;
 var player;
 
 var keyUp = false;
@@ -23,42 +23,55 @@ var keyRight = false;
 jQuery(document).ready(function () {
 	canvas = jQuery('#gameCanvas').get(0);
 	stage = new Stage(canvas);
-	cell = new Container();
-    stage.addChild(cell);
-    
-    var tiles = [[1,1,1,1,1, 1,0,0,0,1, 1,1,1,1,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
+	world = new Container();
+    stage.addChild(world);
+
+    world.width = 15;
+    world.height = 15;
+    world.tiles = [[1,1,1,1,1, 1,0,0,0,1, 1,1,1,1,1,],
+                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
+                  [1,0,0,1,0, 0,0,0,0,0, 0,0,0,0,1,],
+                  [1,0,1,1,1, 0,0,0,0,0, 0,0,0,0,1,],
+                  [1,0,0,1,0, 0,0,0,0,0, 0,0,0,0,1,],
                   
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                 [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                 [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
+                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
+                  [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
+                  [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
+                  [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,],
+                  [1,0,0,0,0, 0,0,0,0,1, 1,1,0,0,1,],
                   
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
-                 [1,1,1,1,1, 1,0,0,0,1, 1,1,1,1,1,],
+                  [1,0,0,0,0, 0,0,0,0,1, 1,1,0,0,1,],
+                  [1,0,0,0,0, 0,0,0,0,1, 1,1,0,0,1,],
+                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
+                  [1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,1,],
+                  [1,1,1,1,1, 1,0,0,0,1, 1,1,1,1,1,],
     ];
+    
+    world.collidePoint = function (x, y) {
+        x = Math.floor(Math.max(0, Math.min(world.width - 1, x)));
+        y = Math.floor(Math.max(0, Math.min(world.height - 1, y)));
+        return(this.tiles[x][y] > 0);
+    }
+    
+    world.collideRect = function (x, y, w, h) {
+        return(this.collidePoint(x, y) || this.collidePoint(x + w, y) ||
+               this.collidePoint(x, y + h) || this.collidePoint(x + w, y + h));
+    }
     
     for(var y = 0; y < 15; ++y) {
         for(var x = 0; x < 15; ++x) {
             var g = new Graphics();
             g.setStrokeStyle(1);
-            if(tiles[x][y] == 0) {
+            if(world.tiles[x][y] == 0) {
                 g.beginFill(Graphics.getRGB(64, 255, 64));
             } else {
                 g.beginFill(Graphics.getRGB(128, 128, 64));
             }
-            g.drawRect(0,0,32,32);
+            g.drawRect(0,0,1,1);
             var s = new Shape(g);
-            s.x = x * 32;
-            s.y = y * 32;
-            s.cache(0, 0, 32, 32);
+            s.x = x;
+            s.y = y;
+            s.cache(0, 0, 1, 1);
             stage.addChild(s);
         }
     }
@@ -99,8 +112,8 @@ function resize() {
     canvas.width = newWidth;
     canvas.height = newHeight;
     
-    stage.scaleX = newWidth / 480;
-    stage.scaleY = newHeight / 480;
+    stage.scaleX = newWidth / world.width;
+    stage.scaleY = newHeight / world.height;
 }
 
 function tick() {
@@ -137,4 +150,9 @@ function onKeyUp(key) {
 		case KEYCODE_RIGHT: keyRight = false; break;
 	}
 }
+
+function world2canvasX(worldX) {return worldX * canvas.width / worldWidth;}
+function world2canvasY(worldY) {return worldY * canvas.height / worldHeight;}
+function canvas2worldX(canvasX) {return canvasX * worldWidth / canvas.width;}
+function canvas2worldY(canvasY) {return canvasY * worldHeight / canvas.height;}
 
