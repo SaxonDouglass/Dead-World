@@ -1,6 +1,21 @@
 var world = function (spec, my) {
-    var that, x=0, y=0, map={};
+    var that, x=0, y=0, map={}, tiles;
     my = my || {};
+
+	var img = new Image();
+	var sheet;
+	img.onload = function(){
+		sheet = new SpriteSheet( {
+			images: [img],
+			frames: {width: 16, height:16},
+		});
+		tiles = [];
+		for(var i = 1; i < sheet.getNumFrames(); i++) {
+			tiles[i] = sheet.getFrame(i);
+		}		
+        that.update();
+	}
+	img.src = "/img/rocks.png";
     
     that = new Container();
 
@@ -34,24 +49,21 @@ var world = function (spec, my) {
     }
     
     that.update = function () {
-        this.removeAllChildren();
-        for(var y = 0; y < 15; ++y) {
-            for(var x = 0; x < 15; ++x) {
-                var g = new Graphics();
-                g.setStrokeStyle(1);
-                if(this.screen.overworld.data[x][y] == 0) {
-                    g.beginFill(Graphics.getRGB(64, 255, 64));
-                } else {
-                    g.beginFill(Graphics.getRGB(128, 128, 64));
-                }
-                g.drawRect(0,0,1,1);
-                var s = new Shape(g);
-                s.x = x;
-                s.y = y;
-                s.cache(0, 0, 1, 1);
-                this.addChild(s);
-            }
-        }
+		if(this.screen && tiles) {
+			this.removeAllChildren();
+			for(var y = 0; y < 15; ++y) {
+				for(var x = 0; x < 15; ++x) {
+					var b = new BitmapAnimation(sheet);
+					b.gotoAndStop(this.screen.overworld.data[x][y]);
+					b.snapToPixel = false;
+					b.scaleX = 1/16;
+					b.scaleY = 1/16;
+					b.x = x;
+					b.y = y;
+					this.addChild(b);
+				}
+			}
+		}
     }
     
     that.x = function () {

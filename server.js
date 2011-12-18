@@ -75,6 +75,17 @@ function handler(req, res) {
 						res.writeHead(200, { 'Content-Type': 'text/javascript' });
 						res.end(data, 'utf-8');
 					});
+	} else if (req.url == "/img/rocks.png") {
+		fs.readFile(__dirname + '/client/img/rocks.png',
+					function (err, data) {
+						if (err) {
+							res.writeHead(500);
+							return res.end('Error loading rocks.png');
+						}
+
+						res.writeHead(200);
+						res.end(data);
+					});
 	}
 }
 

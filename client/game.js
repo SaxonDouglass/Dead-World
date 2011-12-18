@@ -49,13 +49,15 @@ function resize() {
     if (newWidthToHeight > widthToHeight) {
         // window width is too wide relative to desired game width
         newWidth = newHeight * widthToHeight;
-        game.style.height = newHeight + 'px';
-        game.style.width = newWidth + 'px';
     } else { // window height is too high relative to desired game height
         newHeight = newWidth / widthToHeight;
-        game.style.width = newWidth + 'px';
-        game.style.height = newHeight + 'px';
     }
+
+	newWidth = Math.floor(newWidth/240)*240;
+	newHeight = Math.floor(newHeight/240)*240;
+
+    game.style.height = newHeight + 'px';
+    game.style.width = newWidth + 'px';
     
     game.style.marginTop = (-newHeight / 2) + 'px';
     game.style.marginLeft = (-newWidth / 2) + 'px';
