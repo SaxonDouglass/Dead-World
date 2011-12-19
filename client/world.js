@@ -2,20 +2,25 @@ var world = function (spec, my) {
     var that, x=0, y=0, map={}, tiles, oldScreen = -1;
     my = my || {};
 
-	var img = new Image();
-	var sheet = null;
-	img.onload = function(){
-		sheet = new SpriteSheet( {
-			images: [img],
-			frames: {width: 48, height:48},
-		});
-		tiles = [];
-		for(var i = 1; i < sheet.getNumFrames(); i++) {
-			tiles[i] = sheet.getFrame(i);
-		}		
-        that.update();
+	var urls = [
+		"/img/tileset/desert.png",
+		"/img/tileset/grass.png",
+	];
+	var imgs = new Array(urls.length);
+	var tilesets = new Array(urls.length);
+	for(var i = 0; i < urls.length; ++i) {
+		console.log(i + " loading");
+		imgs[i] = new Image();
+		imgs[i].onload = function(){
+			console.log(i+" loaded");
+			tilesets[i] = new SpriteSheet( {
+				images: [this],
+				frames: {width: 48, height:48},
+			});
+			that.update();
+		}
+		imgs[i].src = urls[i];
 	}
-	img.src = "/img/tileset/desert.png";
     
     that = new Container();
 
@@ -85,7 +90,7 @@ var world = function (spec, my) {
 				this.removeAllChildren();
 				for(var y = 0; y < 15; ++y) {
 					for(var x = 0; x < 15; ++x) {
-						var b = new BitmapAnimation(sheet);
+						var b = new BitmapAnimation(tilesets[2]);
 						b.gotoAndStop(this.screen.overworld.data[x][y]);
 						b.scaleX = 1/48;
 						b.scaleY = 1/48;
