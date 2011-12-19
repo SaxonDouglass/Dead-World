@@ -41,7 +41,7 @@ var character = function (spec, my) {
         }
         
         var tile = world.getTile(targetX, targetY);
-        if (tiledata[tile].isBreakable) {
+        if (tiledata[tile].isBreakable && tiledata[equipped].tier >= tiledata[tile].tier) {
             world.setTile(targetX, targetY, tiledata[tile].onBreak());
         }
     }

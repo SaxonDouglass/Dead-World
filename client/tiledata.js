@@ -10,6 +10,8 @@ var tiledata = new Array();
         
         that.label = (typeof spec.label === 'undefined') ?
             'blank' : spec.label;
+        that.tier = (typeof spec.tier === 'undefined') ?
+            0 : spec.tier;
         
         that.isBreakable = (typeof spec.isBreakable === 'undefined') ?
             false : spec.isBreakable;
@@ -61,6 +63,7 @@ var tiledata = new Array();
     
     tiledata[33] = tile({
         'label': 'rock',
+        'tier': 1,
         'isSolid': true,
         'isBreakable': true,
         'onBreak': function () { return 49; },
@@ -68,6 +71,7 @@ var tiledata = new Array();
 
     tiledata[34] = tile({
         'label': 'ore vein',
+        'tier': 2,
         'isSolid': true,
         'isBreakable': true,
         'onBreak': function () { return 50; },
@@ -154,16 +158,19 @@ var tiledata = new Array();
     
     tiledata[128] = tile({
         'label': 'spade',
+        'tier': 1,
         'isEquipable': true,
     });
 
     tiledata[129] = tile({
         'label': 'pick',
+        'tier': 2,
         'isEquipable': true,
     });    
 
     tiledata[130] = tile({
         'label': 'sword',
+        'tier': 3,
         'isEquipable': true,
     });
     
