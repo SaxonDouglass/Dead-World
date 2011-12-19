@@ -38,7 +38,9 @@ var world = function (spec, my) {
     }
     
     that.getTile = function (x, y) {
-        return this.screen.overworld.data[Math.floor(x)][Math.floor(y)];
+        x = Math.floor(Math.max(0, Math.min(this.width - 1, x)));
+        y = Math.floor(Math.max(0, Math.min(this.height - 1, y)));
+        return this.screen.overworld.data[x][y];
     }
     
     that.moveTo = function (newX, newY) {
@@ -71,7 +73,9 @@ var world = function (spec, my) {
 	}
     
     that.setTile = function (x, y, tile) {
-        this.screen.overworld.data[Math.floor(x)][Math.floor(y)] = tile;
+        x = Math.floor(Math.max(0, Math.min(this.width - 1, x)));
+        y = Math.floor(Math.max(0, Math.min(this.height - 1, y)));
+        this.screen.overworld.data[x][y] = tile;
         world.update();
     }
     
