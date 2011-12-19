@@ -46,3 +46,16 @@ var lvls = {  //array of level data arrays
 
 
 }
+
+//map 1-based tileset indices to 0-based indices
+for (var i = 0; i < lvls.length; i++)
+{
+	for(var j = 0; j < 225; j++)
+		lvls[i].layers[0].data[j]--;
+}	
+
+function randlevel()
+{
+	return lvls[Math.floor(Math.random() * lvls.length)].layers[0].data; 
+}
+
