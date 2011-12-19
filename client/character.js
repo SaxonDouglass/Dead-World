@@ -35,8 +35,8 @@ var character = function (spec, my) {
             } else {
                 world.setTile(this.x, this.y, carrying);
                 carrying = tile;
-                build.update();
             }
+            build.update();
         }
     }
 
