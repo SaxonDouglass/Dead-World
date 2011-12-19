@@ -11,9 +11,10 @@ var world = function (spec, my) {
 	for(var i = 0; i < urls.length; ++i) {
 		console.log(i + " loading");
 		imgs[i] = new Image();
+	    imgs[i].id = i;
 		imgs[i].onload = function(){
-			console.log(i+" loaded");
-			tilesets[i] = new SpriteSheet( {
+			console.log(this.id+" loaded");
+			tilesets[this.id] = new SpriteSheet( {
 				images: [this],
 				frames: {width: 48, height:48},
 			});
@@ -86,11 +87,12 @@ var world = function (spec, my) {
     
     that.update = function () {
 		if(this.screen) {
-			if(tiles) {
+			if(tilesets[0]) {
 				this.removeAllChildren();
 				for(var y = 0; y < 15; ++y) {
 					for(var x = 0; x < 15; ++x) {
-						var b = new BitmapAnimation(tilesets[2]);
+					    console.log(tilesets[0]);
+						var b = new BitmapAnimation(tilesets[0]);
 						b.gotoAndStop(this.screen.overworld.data[x][y]);
 						b.scaleX = 1/48;
 						b.scaleY = 1/48;
