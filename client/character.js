@@ -40,6 +40,14 @@ var character = function (spec, my) {
             targetY += -1;
         }
         
+        for (var i = world.monsters.length - 1; i >= 0; --i) {
+            if (world.monsters[i].collidePoint(targetX, targetY)) {
+                console.log('hit!');
+                world.monsters.splice(i, 1);
+                world.update();
+            }
+        }
+        
         var tile = world.getTile(targetX, targetY);
         if (tiledata[tile].isBreakable && tiledata[equipped].tier >= tiledata[tile].tier) {
             world.setTile(targetX, targetY, tiledata[tile].onBreak());
