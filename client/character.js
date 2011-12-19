@@ -43,7 +43,7 @@ var character = function (spec, my) {
 		that.addChild(helm);
 		
 		feet = charSprite(sprite);
-		feet.gotoAndPlay('feet');
+		feet.gotoAndStop('feet');
 		that.addChild(feet);
 		
 		body = charSprite(sprite);
@@ -104,20 +104,17 @@ var character = function (spec, my) {
     }
     
     that.pickup = function () {
-    	console.log('pickup');
         var tile = world.getTile(this.x, this.y);
         if (tile == 0) {
             if (carrying) {
                 world.setTile(this.x, this.y, carrying);
                 tiledata[carrying].onPutdown(this.x, this.y);
                 carrying = 0;
-                console.log(31);
 		load.gotoAndStop(31);
             } else if (equipped) {
                 world.setTile(this.x, this.y, equipped);
                 tiledata[equipped].onPutdown(this.x, this.y);
                 equipped = 0;
-                console.log(39);
 		tool.gotoAndStop(39);
             }
             build.update();
@@ -149,6 +146,8 @@ var character = function (spec, my) {
     }
 
     that.tick = function() {
+    	var oldX = this.x,
+    	    oldY = this.y;
         if (keyLeft) {
             if (world.collideRect(this.x - 0.6, this.y - 0.4, 0.8, 0.8) &&
                 !world.collidePoint(this.x, this.y)) {
@@ -207,6 +206,10 @@ var character = function (spec, my) {
             world.moveTo(world.x(), world.y() + 1);
             this.y = 0;
         }
+        
+        	if(feet) {
+        	       	feet.paused = (this.x === oldX && this.y === oldY) 
+        	}
 
 		if(this.invuln) {
 			this.invuln--;

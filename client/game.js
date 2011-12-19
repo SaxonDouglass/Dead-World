@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
 	console.log(sidebar);
 
 	sidebar.addChild(health({player: player}));
-	//sidebar.addChild(carrying(player));
+	sidebar.addChild(inventory({player: player}));
 
     resize();
     window.addEventListener('resize', resize, false);
