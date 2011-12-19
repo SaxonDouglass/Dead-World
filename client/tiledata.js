@@ -104,7 +104,7 @@ var tiledata = new Array();
     });
 
     tiledata[67] = tile({
-        'label': 'ingot',
+        'label': 'bread',
         'isCarryable': true,
     });
     
