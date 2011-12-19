@@ -87,12 +87,11 @@ var world = function (spec, my) {
     
     that.update = function () {
 		if(this.screen) {
-			if(tilesets[0]) {
+			if(tilesets[this.screen.overworld.tileset]) {
 				this.removeAllChildren();
 				for(var y = 0; y < 15; ++y) {
 					for(var x = 0; x < 15; ++x) {
-					    console.log(tilesets[0]);
-						var b = new BitmapAnimation(tilesets[0]);
+						var b = new BitmapAnimation(tilesets[this.screen.overworld.tileset]);
 						b.gotoAndStop(this.screen.overworld.data[x][y]);
 						b.scaleX = 1/48;
 						b.scaleY = 1/48;
