@@ -5,6 +5,7 @@ var world = function (spec, my) {
 	var urls = [
 		"/img/tileset/desert.png",
 		"/img/tileset/grass.png",
+		"/img/tileset/ice.png",
 	];
 	var imgs = new Array(urls.length);
 	var tilesets = new Array(urls.length);
