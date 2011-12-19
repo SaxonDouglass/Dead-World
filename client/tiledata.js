@@ -41,65 +41,71 @@ var tiledata = new Array();
         'isSolid': true,
     });
 
-    tiledata[40] = tile({
+    tiledata[50] = tile({
+        'label': 'ore vein',
+        'isSolid': true,
+    });
+
+    tiledata[48] = tile({
         'label': 'logs',
         'isCarryable': true,
     });
 
-    tiledata[41] = tile({
+    tiledata[49] = tile({
         'label': 'stone',
         'isCarryable': true,
     });
     
-    tiledata[42] = tile({
-        'label': 'planks',
-        'isCarryable': true,
-    });
-    
-    tiledata[43] = tile({
-        'label': 'maze',
-        'isCarryable': true,
-    });
-    
-    tiledata[44] = tile({
-        'label': 'seeds',
-        'isCarryable': true,
-    });
-    
-    tiledata[45] = tile({
+    tiledata[50] = tile({
         'label': 'ore',
         'isCarryable': true,
     });
 
-    tiledata[46] = tile({
+    tiledata[51] = tile({
+        'label': 'maize',
+        'isCarryable': true,
+    });
+    
+    tiledata[64] = tile({
+        'label': 'planks',
+        'isCarryable': true,
+    });
+    
+    tiledata[66] = tile({
         'label': 'ingot',
         'isCarryable': true,
     });
 
-    tiledata[47] = tile({
-        'label': '??',
+    tiledata[67] = tile({
+        'label': 'ingot',
+        'isCarryable': true,
     });
 
-    tiledata[48] = tile({
+    tiledata[83] = tile({
+        'label': 'seeds',
+        'isCarryable': true,
+    });
+
+    tiledata[96] = tile({
         'label': 'door',
     });
 
-    tiledata[49] = tile({
+    tiledata[97] = tile({
         'label': 'log wall',
         'isSolid': true,
     });
 
-    tiledata[50] = tile({
+    tiledata[98] = tile({
         'label': 'stone wall',
         'isSolid': true,
     });
     
-    tiledata[51] = tile({
+    tiledata[99] = tile({
         'label': 'plank wall',
         'isSolid': true,
     });
 
-    for (var i = 52; i <= 57; ++i) {
+    for (var i = 104; i <= 109; ++i) {
         tiledata[i] = tile({
             'label': 'fence',
             'isSolid': true,
