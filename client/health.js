@@ -38,7 +38,6 @@ var health = function(spec,my) {
 				frames: {width: 48, height: 48},
 			});
 			for(i = 0; i < MAX_HEALTH; i++) {
-				console.log(i);
 				that.addChild(heart({
 					'player': spec.player,
 					'level': i,

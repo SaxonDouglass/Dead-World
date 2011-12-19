@@ -81,6 +81,8 @@ var generate = function(seed) {
 							   [7,2,2,2,2, 12,0,0,0,14, 2,2,2,2,6]
 							  ];
     }
+
+    spec.overworld.tileset = Math.floor(Math.random()*2);
     
     return spec;
 }

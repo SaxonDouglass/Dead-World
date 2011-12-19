@@ -47,11 +47,7 @@ jQuery(document).ready(function () {
 	console.log(sidebar);
 
 	sidebar.addChild(health({player: player}));
-	//sidebar.addChild(world);
 	//sidebar.addChild(carrying(player));
-
-	monsterContainer = new Container();
-	stage.addChild(monsterContainer);
 
     resize();
     window.addEventListener('resize', resize, false);
