@@ -15,9 +15,13 @@ var LEFT = 1;
 var DOWN = 2;
 var RIGHT = 3;
 
+var MAX_HEALTH = 5;
+
 jQuery.noConflict();
 
 var canvas;
+var sideCanvas;
+var sidebar;
 var stage;
 var world;
 var player;
@@ -30,6 +34,8 @@ var keyPickup = false;
 
 jQuery(document).ready(function () {
 	canvas = jQuery('#gameCanvas').get(0);
+	sideCanvas = jQuery('#sidebarCanvas').get(0);
+	sidebar = new Stage(sideCanvas);
 	stage = new Stage(canvas);
 
     world = world();
@@ -37,6 +43,12 @@ jQuery(document).ready(function () {
 
     player = character();
     stage.addChild(player);
+
+	console.log(sidebar);
+
+	sidebar.addChild(health({player: player}));
+	//sidebar.addChild(world);
+	//sidebar.addChild(carrying(player));
 
 	monsterContainer = new Container();
 	stage.addChild(monsterContainer);
@@ -50,10 +62,14 @@ jQuery(document).ready(function () {
 });
 
 function resize() {
+	var canvasPx = 240;
+	var sidebarPx = 32;
+
     var game = jQuery('#game').get(0);
-    var widthToHeight = 1;
+    var widthToHeight = (canvasPx+sidebarPx)/canvasPx;
     var newWidth = window.innerWidth;
     var newHeight = window.innerHeight;
+	var newSidebar;
     var newWidthToHeight = newWidth / newHeight;
     
     if (newWidthToHeight > widthToHeight) {
@@ -63,11 +79,13 @@ function resize() {
         newHeight = newWidth / widthToHeight;
     }
 
-	newWidth = Math.floor(newWidth/240)*240;
-	newHeight = Math.floor(newHeight/240)*240;
+	newWidth = Math.floor(newWidth/(canvasPx+sidebarPx));
+	newHeight = Math.floor(newHeight/canvasPx)*canvasPx;
+	newSidebar = newWidth*sidebarPx;
+	newWidth = newWidth*canvasPx;
 
     game.style.height = newHeight + 'px';
-    game.style.width = newWidth + 'px';
+    game.style.width = (newWidth + newSidebar + 2) + 'px';
     
     game.style.marginTop = (-newHeight / 2) + 'px';
     game.style.marginLeft = (-newWidth / 2) + 'px';
@@ -76,13 +94,20 @@ function resize() {
     canvas.width = newWidth;
     canvas.height = newHeight;
     
+    sideCanvas.width = newSidebar;
+    sideCanvas.height = newHeight;
+    
     stage.scaleX = newWidth / world.width;
     stage.scaleY = newHeight / world.height;
+
+    sidebar.scaleX = newSidebar / 2;
+    sidebar.scaleY = newHeight / world.height;
 }
 
 function tick() {
 	// update the stage:
 	stage.update();
+	sidebar.update();
 }
 
 function onKeyDown(key) {
