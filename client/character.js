@@ -43,7 +43,7 @@ var character = function (spec, my) {
 		that.addChild(helm);
 		
 		feet = charSprite(sprite);
-		feet.gotoAndPlay('feet');
+		feet.gotoAndStop('feet');
 		that.addChild(feet);
 		
 		body = charSprite(sprite);
@@ -146,6 +146,8 @@ var character = function (spec, my) {
     }
 
     that.tick = function() {
+    	var oldX = this.x,
+    	    oldY = this.y;
         if (keyLeft) {
             if (world.collideRect(this.x - 0.6, this.y - 0.4, 0.8, 0.8) &&
                 !world.collidePoint(this.x, this.y)) {
@@ -204,6 +206,10 @@ var character = function (spec, my) {
             world.moveTo(world.x(), world.y() + 1);
             this.y = 0;
         }
+        
+        	if(feet) {
+        	       	feet.paused = (this.x === oldX && this.y === oldY) 
+        	}
 
 		if(this.invuln) {
 			this.invuln--;

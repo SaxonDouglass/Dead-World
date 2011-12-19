@@ -33,13 +33,10 @@ var inventory = function(spec,my) {
 		img.src = "/img/tileset/inventory.png";
 
 		that.tick = function() {
-			console.log('update');
 			if(carrying) {
-				console.log('carry');
 				carrying.gotoAndStop(spec.player.carrying());
 			}
 			if(equipped) {
-				console.log('equip');
 				equipped.gotoAndStop(spec.player.equipped());
 			}
 		}
