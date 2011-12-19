@@ -64,6 +64,14 @@ var character = function (spec, my) {
 		that.addChild(pixie);
 	}
 	img.src = "/img/spritesheet.png";
+
+	that.carrying = function() {
+		return carrying;
+	}
+    
+	that.equipped = function() {
+		return equipped;
+	}
     
     that.attack = function () {
         var targetX = player.x
@@ -85,14 +93,19 @@ var character = function (spec, my) {
     }
     
     that.pickup = function () {
+    	console.log('pickup');
         var tile = world.getTile(this.x, this.y);
         if (tile == 0) {
             if (carrying) {
                 world.setTile(this.x, this.y, carrying);
                 carrying = 0;
+                console.log(31);
+		load.gotoAndStop(31);
             } else if (equipped) {
                 world.setTile(this.x, this.y, equipped);
                 equipped = 0;
+                console.log(39);
+		tool.gotoAndStop(39);
             }
         }
         if (tiledata[tile].isEquipable) {
@@ -104,6 +117,8 @@ var character = function (spec, my) {
                 tiledata[equipped].onPutdown(this.x, this.y);
                 equipped = tile;
             }
+            console.log(tiledata[equipped]);
+            tool.gotoAndStop(tiledata[equipped].carrySprite);
         } else if (tiledata[tile].isCarryable) {
             if (carrying == 0) {
                 carrying = tile;
@@ -114,6 +129,8 @@ var character = function (spec, my) {
                 carrying = tile;
             }
             build.update();
+            console.log(tiledata[carrying].carrySprite);
+            load.gotoAndStop(tiledata[carrying].carrySprite);
         }
     }
 

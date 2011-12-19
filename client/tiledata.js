@@ -20,6 +20,9 @@ var tiledata = new Array();
         that.isSolid = (typeof spec.isSolid === 'undefined') ?
             false : spec.isSolid;
         
+        that.carrySprite = (typeof spec.carrySprite === 'undefined') ?
+            31 : spec.carrySprite;
+        
         that.onBreak = (typeof spec.onBreak === 'undefined') ?
             function () {return 0;} : spec.onBreak;
         // TODO: implement onLoad if needed
@@ -76,41 +79,49 @@ var tiledata = new Array();
     tiledata[48] = tile({
         'label': 'logs',
         'isCarryable': true,
+        'carrySprite': 8,
     });
 
     tiledata[49] = tile({
         'label': 'stone',
         'isCarryable': true,
+        'carrySprite': 9,
     });
     
     tiledata[50] = tile({
         'label': 'ore',
         'isCarryable': true,
+        'carrySprite': 13,
     });
 
     tiledata[51] = tile({
         'label': 'maize',
         'isCarryable': true,
+        'carrySprite': 11,
     });
     
     tiledata[64] = tile({
         'label': 'planks',
         'isCarryable': true,
+        'carrySprite': 10,
     });
     
     tiledata[66] = tile({
         'label': 'ingot',
         'isCarryable': true,
+        'carrySprite': 14,
     });
 
     tiledata[67] = tile({
         'label': 'bread',
         'isCarryable': true,
+        'carrySprite': 15,
     });
     
     tiledata[80] = tile({
         'label': 'pine cone',
         'isCarryable': true,
+        'carrySprite': 16,
     });
     
     tiledata[81] = tile({
@@ -119,11 +130,13 @@ var tiledata = new Array();
         'onPutdown': function (x, y) {
             world.setTile(x, y, 32);
         },
+        'carrySprite': 17,
     });
 
     tiledata[83] = tile({
         'label': 'seeds',
         'isCarryable': true,
+        'carrySprite': 12,
     });
 
     tiledata[96] = tile({
@@ -148,16 +161,19 @@ var tiledata = new Array();
     tiledata[128] = tile({
         'label': 'spade',
         'isEquipable': true,
+        'carrySprite': 24,
     });
 
     tiledata[129] = tile({
         'label': 'pick',
         'isEquipable': true,
+        'carrySprite': 25,
     });    
 
     tiledata[130] = tile({
         'label': 'sword',
         'isEquipable': true,
+        'carrySprite': 26,
     });
 
     for (var i = 104; i <= 109; ++i) {
