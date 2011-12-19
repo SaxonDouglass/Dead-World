@@ -50,7 +50,7 @@ jQuery(document).ready(function () {
     console.log(SoundJS);
 
 	sidebar.addChild(health({player: player}));
-	//sidebar.addChild(carrying(player));
+	sidebar.addChild(inventory({player: player}));
 	
     soundInit();
 

@@ -82,7 +82,7 @@ var generate = function(seed) {
 							  ];
     }
 
-    spec.overworld.tileset = Math.floor(Math.random()*2);
+    spec.overworld.tileset = Math.floor(Math.random()*3);
     
     return spec;
 }
