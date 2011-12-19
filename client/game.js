@@ -183,12 +183,16 @@ function soundInit() {
 		    {name:"playerdamagecry", src:"/snd/sfx/playerdamagecry" + filetype, instances:1},
 		    {name:"playerdeathcry", src:"/snd/sfx/playerdeathcry" + filetype, instances:1},
 		    {name:"weaponimpact", src:"/snd/sfx/weaponimpact" + filetype, instances:1},
+		    {name:"lowtiermonsteralert", src:"/snd/sfx/lowtiermonsteralert" + filetype, instances:1},
+		    {name:"lowtiermonsterdeath", src:"/snd/sfx/lowtiermonsterdeath" + filetype, instances:1},
+		    {name:"hightiermonsteralert", src:"/snd/sfx/hightiermonsteralert" + filetype, instances:1},
+		    {name:"hightiermonsterdeath", src:"/snd/sfx/hightiermonsterdeath" + filetype, instances:1},
 		]);
     }
 	
 function soundDoneLoading() {
 	    // start the music
-	    SoundJS.play("overworld", null, 0.5, true);
+	    SoundJS.play("titletheme", null, 0.3, true);
     }
 
 function world2canvasX(worldX) {return worldX * canvas.width / worldWidth;}

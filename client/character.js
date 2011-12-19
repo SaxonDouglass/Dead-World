@@ -91,14 +91,13 @@ var character = function (spec, my) {
         
         for (var i = world.monsters.length - 1; i >= 0; --i) {
             if (world.monsters[i].collidePoint(targetX, targetY)) {
-                console.log('hit!');
-                world.monsters.splice(i, 1);
-                world.update();
+                world.monsters[i].die();
             }
         }
         
         var tile = world.getTile(targetX, targetY);
         if (tiledata[tile].isBreakable && tiledata[equipped].tier >= tiledata[tile].tier) {
+            SoundJS.play('weaponimpact', SoundJS.INTERUPT_LATE, 0.3);
             world.setTile(targetX, targetY, tiledata[tile].onBreak());
         }
     }
@@ -233,13 +232,14 @@ var character = function (spec, my) {
 			health -= dmg;
 			this.invuln = 20;
 			if(health <= 0) {
-			    SoundJS.play('playerdeathcry', SoundJS.INTERUPT_LATE, 0.2);
+			    SoundJS.play('playerdeathcry', SoundJS.INTERUPT_LATE, 0.1);
+	            SoundJS.play("deadworldblues", null, 0.5, true);
 				health = MAX_HEALTH;
 				this.x = 7;
 				this.y = 7;
 				world.reset();
 			} else if (dmg > 0) {
-			    SoundJS.play('playerdamagecry', SoundJS.INTERUPT_LATE, 0.2);
+			    SoundJS.play('playerdamagecry', SoundJS.INTERUPT_LATE, 0.1);
 	        }
 			
 			if(pixie) {
