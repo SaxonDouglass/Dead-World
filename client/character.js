@@ -51,9 +51,11 @@ var character = function (spec, my) {
         if (tile == 0) {
             if (carrying) {
                 world.setTile(this.x, this.y, carrying);
+                tiledata[carrying].onPutdown(this.x, this.y);
                 carrying = 0;
             } else if (equipped) {
                 world.setTile(this.x, this.y, equipped);
+                tiledata[equipped].onPutdown(this.x, this.y);
                 equipped = 0;
             }
             build.update();
