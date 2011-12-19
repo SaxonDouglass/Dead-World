@@ -85,7 +85,7 @@ function resize() {
 	newWidth = newWidth*canvasPx;
 
     game.style.height = newHeight + 'px';
-    game.style.width = (newWidth + newSidebar + 2) + 'px';
+    game.style.width = (newWidth + newSidebar) + 'px';
     
     game.style.marginTop = (-newHeight / 2) + 'px';
     game.style.marginLeft = (-newWidth / 2) + 'px';

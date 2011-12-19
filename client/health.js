@@ -4,12 +4,12 @@ var heart = function(spec,my) {
 
 	that = new BitmapAnimation(spec.sprite);
 
-	that.regX = 8;
-	that.regY = 8;
-	that.scaleX = 1/16;
-	that.scaleY = 1/16;
-	that.x = 1;
-	that.y = i+0.5;
+	that.regX = 24;
+	that.regY = 24;
+	that.scaleX = 1/48;
+	that.scaleY = 1/48;
+	that.x = 1.3;
+	that.y = i + 0.5;
 	that.gotoAndStop(0);
 
 	that.tick = function() {
@@ -35,7 +35,7 @@ var health = function(spec,my) {
 		img.onload = function() {
 			var sprite = new SpriteSheet({
 				images: [img],
-				frames: {width: 16, height: 16},
+				frames: {width: 48, height: 48},
 			});
 			for(i = 0; i < MAX_HEALTH; i++) {
 				console.log(i);

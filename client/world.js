@@ -7,7 +7,7 @@ var world = function (spec, my) {
 	img.onload = function(){
 		sheet = new SpriteSheet( {
 			images: [img],
-			frames: {width: 16, height:16},
+			frames: {width: 48, height:48},
 		});
 		tiles = [];
 		for(var i = 1; i < sheet.getNumFrames(); i++) {
@@ -87,8 +87,8 @@ var world = function (spec, my) {
 					for(var x = 0; x < 15; ++x) {
 						var b = new BitmapAnimation(sheet);
 						b.gotoAndStop(this.screen.overworld.data[x][y]);
-						b.scaleX = 1/16;
-						b.scaleY = 1/16;
+						b.scaleX = 1/48;
+						b.scaleY = 1/48;
 						b.x = x;
 						b.y = y;
 						this.addChild(b);
