@@ -7,8 +7,8 @@ var character = function (spec, my) {
     that.x = 7;
     that.y = 7;
 	that.dir = DOWN;
-	that.health = 10;
-	that.invuln = 0;
+	that.health = MAX_HEALTH;
+	that.invuln = 10;
 
 	var img = new Image();
 	img.onload = function() {
@@ -133,7 +133,7 @@ var character = function (spec, my) {
 			this.health--;
 			this.invuln = 20;
 			if(this.health <= 0) {
-				this.health = 10;
+				this.health = MAX_HEALTH;
 				this.x = 7;
 				this.y = 7;
 				world.reset();
