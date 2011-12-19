@@ -1,12 +1,26 @@
+var charSprite = function(sprite, my) {
+	var that;
+	my - my || {};
+
+	that = new BitmapAnimation(sprite);
+	
+	that.scaleX = 1/48;
+	that.scaleY = 1/48;
+	that.regX = 24;
+	that.regY = 24;
+	
+	return that;
+}
+
 var character = function (spec, my) {
-    var that, carrying=0, equipped=0;
+    var that, carrying=0, equipped=0,
+        load, helm, feet, shield, body, tool, pixie;
     my = my || {};
     
     that = new Container();
     
     that.x = 7.5;
     that.y = 7.5;
-	that.dir = DOWN;
 	that.health = MAX_HEALTH;
 	that.invuln = 10;
 	that.facing = 'down';
@@ -16,16 +30,40 @@ var character = function (spec, my) {
 		var sprite = new SpriteSheet({
 			images: [img],
 			frames: {width: 48, height: 48},
+			animations: {
+				feet: [4,5,'feet'],
+			}
 		});
-		var anim = new BitmapAnimation(sprite);
-		anim.scaleX = 1/48;
-		anim.scaleY = 1/48;
-		anim.regX = 24;
-		anim.regY = 24;
-		anim.gotoAndPlay(1);
-		that.addChild(anim);
+		
+		load = charSprite(sprite);
+		load.gotoAndStop(31);
+		that.addChild(load);
+		
+		helm = charSprite(sprite);
+		helm.gotoAndStop(0);
+		that.addChild(helm);
+		
+		feet = charSprite(sprite);
+		feet.gotoAndPlay('feet');
+		that.addChild(feet);
+		
+		body = charSprite(sprite);
+		body.gotoAndStop(7);
+		that.addChild(body);
+
+		shield = charSprite(sprite);
+		shield.gotoAndStop(6);
+		that.addChild(shield);
+
+		tool = charSprite(sprite);
+		tool.gotoAndStop(39);
+		that.addChild(tool);
+
+		pixie = charSprite(sprite);
+		pixie.gotoAndStop(40);
+		that.addChild(pixie);
 	}
-	img.src = "/img/character.png";
+	img.src = "/img/spritesheet.png";
     
     that.attack = function () {
         var targetX = player.x
@@ -141,6 +179,18 @@ var character = function (spec, my) {
 
 		if(this.invuln) {
 			this.invuln--;
+		}
+		
+		if(helm) {
+			if(this.facing == 'up') {
+				helm.gotoAndStop(2);
+			} else if(this.facing == 'down') {
+				helm.gotoAndStop(0);
+			} else if(this.facing == 'left') {
+				helm.gotoAndStop(1);
+			} else if(this.facing == 'right') {
+				helm.gotoAndStop(3);
+			}
 		}
     }
 
