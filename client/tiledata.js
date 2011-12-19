@@ -3,34 +3,35 @@ var tiledata = new Array();
 (function () {
     var tile = function (spec, my) {
         var that;
+        spec = spec || {};
         my = my || {};
         
         that = {};
         
-        that.label = spec.label;
+        that.label = (typeof spec.label === 'undefined') ?
+            'blank' : spec.label;
         
-        that.isCarryable = spec.isCarryable;
-        that.isSolid = spec.isSolid;
-        that.isBreakable = spec.isBreakable;
+        that.isBreakable = (typeof spec.isBreakable === 'undefined') ?
+            false : spec.isBreakable;
+        that.isCarryable = (typeof spec.isCarryable === 'undefined') ?
+            false : spec.isCarryable;
+        that.isEquipable = (typeof spec.isEquipable === 'undefined') ?
+            false : spec.isEquipable;
+        that.isSolid = (typeof spec.isSolid === 'undefined') ?
+            false : spec.isSolid;
         
-        that.onBreak = spec.onBreak;
-        that.onLoad = spec.onLoad;
-        that.onPutdown = spec.onPutdown;
+        that.onBreak = (typeof spec.onBreak === 'undefined') ?
+            function () {return 0;} : spec.onBreak;
+        // TODO: implement onLoad if needed
+        that.onLoad = (typeof spec.onLoad === 'undefined') ?
+            function (x, y) {} : spec.onLoad;
+        that.onPutdown = (typeof spec.onPutdown === 'undefined') ?
+            function (x, y) {} : spec.onPutdown;
 
         return that;
     }
     
-    var base = tile({
-        'label': 'blank',
-        
-        'isCarryable': false,
-        'isSolid': false,
-        'isBreakable': false,
-        
-        'onBreak': function () {return 0;},
-        'onLoad': function (x, y) {},
-        'onPutdown': function (x, y) {},
-    });
+    var base = tile();
     
     for (var i = 0; i < 256; ++i) {
         tiledata[i] = base;
@@ -38,7 +39,6 @@ var tiledata = new Array();
 
     tiledata[0] = tile({
         'label': 'air',
-        'isCarryable': true,
     });
     
     for (var i = 1; i < 16; ++i) {
@@ -147,17 +147,17 @@ var tiledata = new Array();
 
     tiledata[128] = tile({
         'label': 'spade',
-        'isCarryable': true,
+        'isEquipable': true,
     });
 
     tiledata[129] = tile({
         'label': 'pick',
-        'isCarryable': true,
+        'isEquipable': true,
     });    
 
     tiledata[130] = tile({
         'label': 'sword',
-        'isCarryable': true,
+        'isEquipable': true,
     });
 
     for (var i = 104; i <= 109; ++i) {

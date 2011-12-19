@@ -1,5 +1,5 @@
 var character = function (spec, my) {
-    var that, carrying=0;
+    var that, carrying=0, equipped=0;
     my = my || {};
     
     that = new Container();
@@ -48,7 +48,25 @@ var character = function (spec, my) {
     
     that.pickup = function () {
         var tile = world.getTile(this.x, this.y);
-        if (tiledata[tile].isCarryable) {
+        if (tile == 0) {
+            if (carrying) {
+                world.setTile(this.x, this.y, carrying);
+                carrying = 0;
+            } else if (equipped) {
+                world.setTile(this.x, this.y, equipped);
+                equipped = 0;
+            }
+        }
+        if (tiledata[tile].isEquipable) {
+            if (equipped == 0) {
+                equipped = tile;
+                world.setTile(this.x, this.y, 0);
+            } else {
+                world.setTile(this.x, this.y, equipped);
+                tiledata[equipped].onPutdown(this.x, this.y);
+                equipped = tile;
+            }
+        } else if (tiledata[tile].isCarryable) {
             if (carrying == 0) {
                 carrying = tile;
                 world.setTile(this.x, this.y, 0);
