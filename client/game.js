@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io.connect('/');
 
 var KEYCODE_UP = 38;
 var KEYCODE_LEFT = 37;
@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
 	console.log(sidebar);
 
 	sidebar.addChild(health({player: player}));
-	//sidebar.addChild(carrying(player));
+	sidebar.addChild(inventory({player: player}));
 
     resize();
     window.addEventListener('resize', resize, false);

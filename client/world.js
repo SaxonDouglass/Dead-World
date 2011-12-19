@@ -9,11 +9,9 @@ var world = function (spec, my) {
 	var imgs = new Array(urls.length);
 	var tilesets = new Array(urls.length);
 	for(var i = 0; i < urls.length; ++i) {
-		console.log(i + " loading");
 		imgs[i] = new Image();
 	    imgs[i].id = i;
 		imgs[i].onload = function(){
-			console.log(this.id+" loaded");
 			tilesets[this.id] = new SpriteSheet( {
 				images: [this],
 				frames: {width: 48, height:48},
