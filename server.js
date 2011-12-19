@@ -45,7 +45,7 @@ app.get('/img/tileset/:file.:ext', function(req, res){
     serveFile(req, res, '/client/img/tileset/');
 });
 
-app.listen(8000);
+app.listen(42000);
 
 var screens;
 

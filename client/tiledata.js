@@ -119,6 +119,10 @@ var tiledata = new Array();
     tiledata[67] = tile({
         'label': 'bread',
         'isCarryable': true,
+        'onPutdown': function (x, y) {
+            world.setTile(x, y, 0);
+            player.hit(-5);
+        },
         'carrySprite': 15,
     });
     

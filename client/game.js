@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io.connect('/');
 
 var KEYCODE_UP = 38;
 var KEYCODE_LEFT = 37;
