@@ -15,7 +15,7 @@ var world = function (spec, my) {
 		}		
         that.update();
 	}
-	img.src = "/img/tileset.png";
+	img.src = "/img/tileset/desert.png";
     
     that = new Container();
 

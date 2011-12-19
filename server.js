@@ -40,6 +40,11 @@ app.get('/img/:file.:ext', function(req, res){
     serveFile(req, res, '/client/img/');
 });
 
+app.get('/img/tileset/:file.:ext', function(req, res){
+    console.log(req.url);
+    serveFile(req, res, '/client/img/tileset/');
+});
+
 app.listen(80);
 
 var screens;
