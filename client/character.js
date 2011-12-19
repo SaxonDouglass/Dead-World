@@ -26,52 +26,17 @@ var character = function (spec, my) {
 	}
 	img.src = "/img/character.png";
     
-    that.build = function() {
-        var tx = Math.floor(this.x);
-        var ty = Math.floor(this.y);
-        
-        var input = [[0, 0, 0, 0, 0],
-                     [0, 0, 0, 0, 0],
-                     [0, 0, 33, 0, 0],
-                     [0, 0, 0, 0, 0],
-                     [33, 0, 33, 0, 33]];
-        
-        var output = [[32, 32, 32, 32, 32],
-                      [32, 0, 0, 0, 32],
-                      [32, 0, 0, 0, 32],
-                      [32, 0, 0, 0, 32],
-                      [32, 32, 0, 32, 32]];
-        
-        if (tx > 2 || tx < world.width - 3 ||
-            ty > 2 || ty < world.height - 3) {
-            var valid = true;
-            for (var i = 0; i < 5; ++i) {
-                for (var j = 0; j < 5; ++j) {
-                    if (world.getTile(tx-2+i, ty-2+j) != input[j][i]) {
-                        valid = false;
-                    }
-                }
-            }
-            
-            if (valid) {
-                for (var i = 0; i < 5; ++i) {
-                    for (var j = 0; j < 5; ++j) {
-                        world.setTile(tx-2+i, ty-2+j, output[j][i]);
-                    }
-                }
-            }
-        }
-    }   
-    
     that.pickup = function() {
         var tile = world.getTile(this.x, this.y);
-        if (carrying == 0 && tiledata[tile].isCarryable) {
-            carrying = tile;
-            world.setTile(this.x, this.y, 0);
-        } else {
-            world.setTile(this.x, this.y, carrying);
-            carrying = tile;
-            this.build();
+        if (tiledata[tile].isCarryable) {
+            if (carrying == 0) {
+                carrying = tile;
+                world.setTile(this.x, this.y, 0);
+            } else {
+                world.setTile(this.x, this.y, carrying);
+                carrying = tile;
+                build.update();
+            }
         }
     }
 
