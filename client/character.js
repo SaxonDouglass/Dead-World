@@ -13,7 +13,7 @@ var charSprite = function(sprite, my) {
 }
 
 var character = function (spec, my) {
-    var that, carrying=0, equipped=0,
+    var that, carrying=0, equipped=0, health=MAX_HEALTH,
         load, helm, feet, shield, body, tool, pixie;
     my = my || {};
     
@@ -21,7 +21,6 @@ var character = function (spec, my) {
     
     that.x = 7.5;
     that.y = 7.5;
-	that.health = MAX_HEALTH;
 	that.invuln = 10;
 	that.facing = 'down';
 
@@ -36,7 +35,7 @@ var character = function (spec, my) {
 		});
 		
 		load = charSprite(sprite);
-		load.gotoAndStop(31);
+		load.gotoAndStop(23);
 		that.addChild(load);
 		
 		helm = charSprite(sprite);
@@ -56,15 +55,19 @@ var character = function (spec, my) {
 		that.addChild(shield);
 
 		tool = charSprite(sprite);
-		tool.gotoAndStop(39);
+		tool.gotoAndStop(31);
 		that.addChild(tool);
 
 		pixie = charSprite(sprite);
-		pixie.gotoAndStop(40);
+		pixie.gotoAndStop(37 - health);
 		that.addChild(pixie);
 	}
 	img.src = "/img/spritesheet.png";
 
+	that.health = function() {
+		return health;
+	}
+    
 	that.carrying = function() {
 		return carrying;
 	}
@@ -209,17 +212,21 @@ var character = function (spec, my) {
 				helm.gotoAndStop(3);
 			}
 		}
-    }
+	}
 
-	that.hit = function() {
+	that.hit = function(dmg) {
 		if(!this.invuln) {
-			this.health--;
+			health -= dmg;
 			this.invuln = 20;
-			if(this.health <= 0) {
-				this.health = MAX_HEALTH;
+			if(health <= 0) {
+				health = MAX_HEALTH;
 				this.x = 7;
 				this.y = 7;
 				world.reset();
+			}
+			
+			if(pixie) {
+				pixie.gotoAndStop(37 - health);
 			}
 		}
 	}

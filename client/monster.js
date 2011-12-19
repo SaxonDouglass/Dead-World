@@ -67,7 +67,7 @@ var monster = function(spec, my) {
         }
 
 		if(this.collideRect(player.x-0.4, player.y-0.4, 0.8, 0.8)) {
-			player.hit();
+			player.hit(1);
 		}
     }
 

@@ -13,7 +13,7 @@ var heart = function(spec,my) {
 	that.gotoAndStop(0);
 
 	that.tick = function() {
-		if(spec.player.health > spec.level) {
+		if(spec.player.health() > spec.level) {
 			that.gotoAndStop(0);
 		} else {
 			that.gotoAndStop(1);
