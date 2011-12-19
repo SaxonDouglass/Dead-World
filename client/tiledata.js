@@ -145,6 +145,13 @@ var tiledata = new Array();
         'isSolid': true,
     });
 
+    for (var i = 104; i <= 109; ++i) {
+        tiledata[i] = tile({
+            'label': 'fence',
+            'isSolid': true,
+        });
+    }
+    
     tiledata[128] = tile({
         'label': 'spade',
         'isEquipable': true,
@@ -159,13 +166,6 @@ var tiledata = new Array();
         'label': 'sword',
         'isEquipable': true,
     });
-
-    for (var i = 104; i <= 109; ++i) {
-        tiledata[i] = tile({
-            'label': 'fence',
-            'isSolid': true,
-        });
-    }
     
 }());
 

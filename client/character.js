@@ -56,6 +56,7 @@ var character = function (spec, my) {
                 world.setTile(this.x, this.y, equipped);
                 equipped = 0;
             }
+            build.update();
         }
         if (tiledata[tile].isEquipable) {
             if (equipped == 0) {
@@ -66,6 +67,7 @@ var character = function (spec, my) {
                 tiledata[equipped].onPutdown(this.x, this.y);
                 equipped = tile;
             }
+            build.update();
         } else if (tiledata[tile].isCarryable) {
             if (carrying == 0) {
                 carrying = tile;
