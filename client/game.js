@@ -9,6 +9,7 @@ var KEYCODE_A = 65;
 var KEYCODE_S = 83;
 var KEYCODE_D = 68;
 var KEYCODE_E = 69;
+var KEYCODE_SPACE = 32;
 
 var UP = 0;
 var LEFT = 1;
@@ -31,6 +32,7 @@ var keyLeft = false;
 var keyDown = false;
 var keyRight = false;
 var keyPickup = false;
+var keyAttack = false;
 
 jQuery(document).ready(function () {
 	canvas = jQuery('#gameCanvas').get(0);
@@ -119,6 +121,7 @@ function onKeyDown(key) {
 		case KEYCODE_D:
 		case KEYCODE_RIGHT: keyRight = true; break;
 		case KEYCODE_E: keyPickup = true; break;
+		case KEYCODE_SPACE: keyAttack = true; break;
 	}
 }
 
@@ -135,6 +138,7 @@ function onKeyUp(key) {
 		case KEYCODE_D:
 		case KEYCODE_RIGHT: keyRight = false; break;
 		case KEYCODE_E: keyPickup = false; break;
+		case KEYCODE_SPACE: keyAttack = false; break;
 	}
 }
 

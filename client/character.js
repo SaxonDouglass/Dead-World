@@ -4,11 +4,12 @@ var character = function (spec, my) {
     
     that = new Container();
     
-    that.x = 7;
-    that.y = 7;
+    that.x = 7.5;
+    that.y = 7.5;
 	that.dir = DOWN;
 	that.health = MAX_HEALTH;
 	that.invuln = 10;
+	that.facing = 'down';
 
 	var img = new Image();
 	img.onload = function() {
@@ -26,7 +27,32 @@ var character = function (spec, my) {
 	}
 	img.src = "/img/character.png";
     
-    that.pickup = function() {
+    that.attack = function () {
+        var targetX = player.x
+        var targetY = player.y;
+        if (this.facing === 'down') {
+            targetY += 1;
+        } else if (this.facing === 'left') {
+            targetX += -1;
+        } else if (this.facing === 'right') {
+            targetX += 1;
+        } else if (this.facing === 'up') {
+            targetY += -1;
+        }
+        
+        var tile = world.getTile(targetX, targetY);
+        if (tiledata[tile].isBreakable) {
+            var p = Math.random();
+            for (b in tiledata[tile].breaksInto) {
+                if (p < tiledata[tile].breaksIntoProb[b]) {
+                    world.setTile(targetX, targetY, tiledata[tile].breaksInto[b]);
+                    break;
+                }
+            }
+        }
+    }
+    
+    that.pickup = function () {
         var tile = world.getTile(this.x, this.y);
         if (tiledata[tile].isCarryable) {
             if (carrying == 0) {
@@ -47,6 +73,7 @@ var character = function (spec, my) {
             } else {
                 this.x -= 0.2;
             }
+            this.facing = 'left';
         }
         if (keyRight) {
             if (world.collideRect(this.x - 0.2, this.y - 0.4, 0.8, 0.8)) {
@@ -54,6 +81,7 @@ var character = function (spec, my) {
             } else {
                 this.x += 0.2;
             }
+            this.facing = 'right';
         }
         if (keyUp) {
             if (world.collideRect(this.x - 0.4, this.y - 0.6, 0.8, 0.8)) {
@@ -61,6 +89,7 @@ var character = function (spec, my) {
             } else {
                 this.y -= 0.2;
             }
+            this.facing = 'up';
         }
         if (keyDown) {
             if (world.collideRect(this.x - 0.4, this.y - 0.2, 0.8, 0.8)) {
@@ -68,10 +97,15 @@ var character = function (spec, my) {
             } else {
                 this.y += 0.2;
             }
+            this.facing = 'down';
         }
         if (keyPickup) {
             keyPickup = false; // on press
             this.pickup();
+        }
+        if (keyAttack) {
+            keyAttack = false; // on press
+            this.attack();
         }
         
         if(this.x < 0) {
