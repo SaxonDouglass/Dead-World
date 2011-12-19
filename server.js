@@ -18,6 +18,8 @@ var serveFile = function (req, res, path, mimetype) {
 		if (req.params.ext == 'css') mimetype = 'text/css';
 		if (req.params.ext == 'js') mimetype = 'text/javascript';
 		if (req.params.ext == 'png') mimetype = 'image/png';
+		if (req.params.ext == 'ogg') mimetype = 'audio/ogg';
+		if (req.params.ext == 'mp3') mimetype = 'audio/mpeg3';
 		res.writeHead(200, { 'Content-Type': mimetype });
 		res.end(data, 'utf-8');
 	})
@@ -43,6 +45,16 @@ app.get('/img/:file.:ext', function(req, res){
 app.get('/img/tileset/:file.:ext', function(req, res){
     console.log(req.url);
     serveFile(req, res, '/client/img/tileset/');
+});
+
+app.get('/snd/music/:file.:ext', function(req, res){
+    console.log(req.url);
+    serveFile(req, res, '/client/snd/music/');
+});
+
+app.get('/snd/sfx/:file.:ext', function(req, res){
+    console.log(req.url);
+    serveFile(req, res, '/client/snd/sfx/');
 });
 
 app.listen(42000);

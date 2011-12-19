@@ -230,11 +230,14 @@ var character = function (spec, my) {
 			health -= dmg;
 			this.invuln = 20;
 			if(health <= 0) {
+			    SoundJS.play('playerdeathcry', SoundJS.INTERUPT_LATE, 0.2);
 				health = MAX_HEALTH;
 				this.x = 7;
 				this.y = 7;
 				world.reset();
-			}
+			} else if (dmg > 0) {
+			    SoundJS.play('playerdamagecry', SoundJS.INTERUPT_LATE, 0.2);
+	        }
 			
 			if(pixie) {
 				pixie.gotoAndStop(37 - health);

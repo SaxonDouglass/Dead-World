@@ -47,9 +47,12 @@ jQuery(document).ready(function () {
     stage.addChild(player);
 
 	console.log(sidebar);
+    console.log(SoundJS);
 
 	sidebar.addChild(health({player: player}));
 	//sidebar.addChild(carrying(player));
+	
+    soundInit();
 
     resize();
     window.addEventListener('resize', resize, false);
@@ -141,6 +144,52 @@ function onKeyUp(key) {
 		case KEYCODE_SPACE: keyAttack = false; break;
 	}
 }
+
+function soundInit() {
+	    // determine browser
+	    var filetype;
+	    agent = navigator.userAgent.toLowerCase();
+	
+	    // adjust for browser
+	    if(agent.indexOf("chrome") > -1){
+		    filetype = ".mp3";
+	    } else if(agent.indexOf("opera") > -1) {
+		    filetype = ".ogg";
+	    } else if(agent.indexOf("firefox") > -1) {
+		    filetype = ".ogg";
+	    } else if(agent.indexOf("safari") > -1) {
+		    filetype = ".mp3";
+	    } else if(agent.indexOf("msie") > -1) {
+		    filetype = ".mp3";
+	    }
+	
+	    // set references
+	    SoundJS.onLoadQueueComplete = soundDoneLoading;
+        jQuery('#game').get(0).onselectstart=function(){return false};
+        jQuery('#game').get(0).onmousedown=function(){return false};
+	
+	    // begin loading content (only sounds to load)
+	    SoundJS.addBatch([
+		    {name:"titletheme", src:"/snd/music/00 - titletheme" + filetype, instances:1},
+		    {name:"deadworldblues", src:"/snd/music/01 - deadworldblues" + filetype, instances:1},
+		    {name:"overworld", src:"/snd/music/02 - overworld" + filetype, instances:1},
+		    {name:"dungeon1", src:"/snd/music/03 - dungeon1" + filetype, instances:1},
+		    {name:"dungeon2", src:"/snd/music/04 - dungeon2" + filetype, instances:1},
+		    {name:"dungeon3", src:"/snd/music/05 - dungeon3" + filetype, instances:1},
+		    {name:"shrinemusic", src:"/snd/music/06 - shrinemusic" + filetype, instances:1},
+		    
+		    {name:"build", src:"/snd/sfx/build" + filetype, instances:1},
+		    {name:"overworldambience", src:"/snd/sfx/overworldambience" + filetype, instances:1},
+		    {name:"playerdamagecry", src:"/snd/sfx/playerdamagecry" + filetype, instances:1},
+		    {name:"playerdeathcry", src:"/snd/sfx/playerdeathcry" + filetype, instances:1},
+		    {name:"weaponimpact", src:"/snd/sfx/weaponimpact" + filetype, instances:1},
+		]);
+    }
+	
+function soundDoneLoading() {
+	    // start the music
+	    SoundJS.play("overworld", null, 0.5, true);
+    }
 
 function world2canvasX(worldX) {return worldX * canvas.width / worldWidth;}
 function world2canvasY(worldY) {return worldY * canvas.height / worldHeight;}
