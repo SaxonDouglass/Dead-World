@@ -35,7 +35,7 @@ var health = function(spec,my) {
 		img.onload = function() {
 			var sprite = new SpriteSheet({
 				images: [img],
-				frames: {width: 16, height: 16},
+				frames: {width: 48, height: 48},
 			});
 			for(i = 0; i < MAX_HEALTH; i++) {
 				console.log(i);
