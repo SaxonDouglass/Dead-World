@@ -42,13 +42,7 @@ var character = function (spec, my) {
         
         var tile = world.getTile(targetX, targetY);
         if (tiledata[tile].isBreakable) {
-            var p = Math.random();
-            for (b in tiledata[tile].breaksInto) {
-                if (p < tiledata[tile].breaksIntoProb[b]) {
-                    world.setTile(targetX, targetY, tiledata[tile].breaksInto[b]);
-                    break;
-                }
-            }
+            world.setTile(targetX, targetY, tiledata[tile].onBreak());
         }
     }
     
@@ -60,6 +54,7 @@ var character = function (spec, my) {
                 world.setTile(this.x, this.y, 0);
             } else {
                 world.setTile(this.x, this.y, carrying);
+                tiledata[carrying].onPutdown(this.x, this.y);
                 carrying = tile;
             }
             build.update();
@@ -68,7 +63,8 @@ var character = function (spec, my) {
 
     that.tick = function() {
         if (keyLeft) {
-            if (world.collideRect(this.x - 0.6, this.y - 0.4, 0.8, 0.8)) {
+            if (world.collideRect(this.x - 0.6, this.y - 0.4, 0.8, 0.8) &&
+                !world.collidePoint(this.x, this.y)) {
                 this.x = Math.floor(this.x) + 0.5;
             } else {
                 this.x -= 0.2;
@@ -76,7 +72,8 @@ var character = function (spec, my) {
             this.facing = 'left';
         }
         if (keyRight) {
-            if (world.collideRect(this.x - 0.2, this.y - 0.4, 0.8, 0.8)) {
+            if (world.collideRect(this.x - 0.2, this.y - 0.4, 0.8, 0.8) &&
+                !world.collidePoint(this.x, this.y)) {
                 this.x = Math.floor(this.x) + 0.5;
             } else {
                 this.x += 0.2;
@@ -84,7 +81,8 @@ var character = function (spec, my) {
             this.facing = 'right';
         }
         if (keyUp) {
-            if (world.collideRect(this.x - 0.4, this.y - 0.6, 0.8, 0.8)) {
+            if (world.collideRect(this.x - 0.4, this.y - 0.6, 0.8, 0.8) &&
+                !world.collidePoint(this.x, this.y)) {
                 this.y = Math.floor(this.y) + 0.5;
             } else {
                 this.y -= 0.2;
@@ -92,7 +90,8 @@ var character = function (spec, my) {
             this.facing = 'up';
         }
         if (keyDown) {
-            if (world.collideRect(this.x - 0.4, this.y - 0.2, 0.8, 0.8)) {
+            if (world.collideRect(this.x - 0.4, this.y - 0.2, 0.8, 0.8) &&
+                !world.collidePoint(this.x, this.y)) {
                 this.y = Math.floor(this.y) + 0.5;
             } else {
                 this.y += 0.2;

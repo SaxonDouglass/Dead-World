@@ -9,23 +9,27 @@ var tiledata = new Array();
         
         that.label = spec.label;
         
-        that.breaksInto = spec.breaksInto;
-        that.breaksIntoProb = spec.breaksIntoProb; // cdf
-        
         that.isCarryable = spec.isCarryable;
         that.isSolid = spec.isSolid;
         that.isBreakable = spec.isBreakable;
+        
+        that.onBreak = spec.onBreak;
+        that.onLoad = spec.onLoad;
+        that.onPutdown = spec.onPutdown;
 
         return that;
     }
     
     var base = tile({
         'label': 'blank',
-        'breaksInto': [0],
-        'breaksInto': [1],
+        
         'isCarryable': false,
         'isSolid': false,
         'isBreakable': false,
+        
+        'onBreak': function () {return 0;},
+        'onLoad': function (x, y) {},
+        'onPutdown': function (x, y) {},
     });
     
     for (var i = 0; i < 256; ++i) {
@@ -46,15 +50,27 @@ var tiledata = new Array();
 
     tiledata[32] = tile({
         'label': 'tree',
-        'breaksInto': [48, 83],
-        'breaksIntoProb': [0.75, 1],
         'isSolid': true,
         'isBreakable': true,
+        'onBreak': function () {
+            var p = Math.random();
+            if (p < 0.75) return 48;
+            else return 80;
+         },
+    });
+    
+    tiledata[33] = tile({
+        'label': 'rock',
+        'isSolid': true,
+        'isBreakable': true,
+        'onBreak': function () { return 49; },
     });
 
-    tiledata[50] = tile({
+    tiledata[34] = tile({
         'label': 'ore vein',
         'isSolid': true,
+        'isBreakable': true,
+        'onBreak': function () { return 50; },
     });
 
     tiledata[48] = tile({
@@ -90,6 +106,19 @@ var tiledata = new Array();
     tiledata[67] = tile({
         'label': 'ingot',
         'isCarryable': true,
+    });
+    
+    tiledata[80] = tile({
+        'label': 'pine cone',
+        'isCarryable': true,
+    });
+    
+    tiledata[81] = tile({
+        'label': 'tree seed',
+        'isCarryable': true,
+        'onPutdown': function (x, y) {
+            world.setTile(x, y, 32);
+        },
     });
 
     tiledata[83] = tile({
