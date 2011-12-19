@@ -87,8 +87,8 @@ var world = function (spec, my) {
 					for(var x = 0; x < 15; ++x) {
 						var b = new BitmapAnimation(sheet);
 						b.gotoAndStop(this.screen.overworld.data[x][y]);
-						b.scaleX = 1/16;
-						b.scaleY = 1/16;
+						b.scaleX = 1/48;
+						b.scaleY = 1/48;
 						b.x = x;
 						b.y = y;
 						this.addChild(b);
