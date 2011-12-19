@@ -17,10 +17,10 @@ exports.random = function() {
 }
 
 var newChance = function(n) {
-	if(n > 3) {
+	if(n > 50) {
 		return 0;
 	} else {
-		return 1 - n/3;
+		return 1 - n/50;
 	}
 }
 
