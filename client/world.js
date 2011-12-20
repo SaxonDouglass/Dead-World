@@ -50,7 +50,9 @@ var world = function (spec, my) {
     
     that.moveTo = function (newX, newY) {
         SoundJS.stop("titletheme");
-	    SoundJS.play("overworld", null, 0.6, true);
+		if(SoundJS.isLoaded("overworld")) {
+			SoundJS.play("overworld", null, 0.6, true);
+		}
 		if(this.screen) {
 			socket.emit('setscreen',this.screen);
 		}
