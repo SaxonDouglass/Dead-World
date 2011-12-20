@@ -88,21 +88,11 @@ var world = function (spec, my) {
     
     that.update = function () {
 		if(this.screen) {
-		    console.log('tileset: '+this.screen.overworld.tileset);
-		    var tileset = 0;
-            if (this.screen.overworld.tileset == 'desert') {
-		        tileset = 0;
-		    } else if (this.screen.overworld.tileset == 'grass') {
-		        tileset = 1;
-		    } else if (this.screen.overworld.tileset == 'ice') {
-		        tileset = 2;
-		    }
-		    console.log(tileset);
-			if(this.tilesets[1]) {
+			if(tilesets[this.screen.overworld.tileset]) {
 				this.removeAllChildren();
 				for(var y = 0; y < 15; ++y) {
 					for(var x = 0; x < 15; ++x) {
-						var b = new BitmapAnimation(this.tilesets[1]);
+						var b = new BitmapAnimation(tilesets[this.screen.overworld.tileset]);
 						b.gotoAndStop(this.screen.overworld.data[x][y]);
 						b.scaleX = 1/48;
 						b.scaleY = 1/48;
@@ -137,7 +127,6 @@ var world = function (spec, my) {
     }
     
     socket.on('screen', function (newScreen) {
-        console.log(newScreen.overworld.data);
         if (!that.screen) {
             that.screen = newScreen;
             that.update();
