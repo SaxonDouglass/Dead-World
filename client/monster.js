@@ -80,5 +80,15 @@ var monster = function(spec, my) {
                this.collidePoint(x, y + h) || this.collidePoint(x + w, y + h));
     }    
 
+    that.die = function() {
+        for (var i = world.monsters.length - 1; i >= 0; --i) {
+            if (this == world.monsters[i]) {
+                SoundJS.play('lowtiermonsterdeath', SoundJS.INTERUPT_LATE, 0.8);
+                world.monsters.splice(i, 1);
+                world.update();
+            }
+        }
+    }
+
     return that;
 }

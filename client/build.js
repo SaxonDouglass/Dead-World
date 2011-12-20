@@ -492,6 +492,7 @@ var build = {
                     }
                 
                     if (valid) {
+                        SoundJS.play('build', SoundJS.INTERUPT_LATE, 0.4);
                         for (var i = 0; i < 5; ++i) {
                             for (var j = 0; j < 5; ++j) {
                                 world.setTile(worldX[plot]+i, worldY[plot]+j, this.patterns[p].output[j][i]);
