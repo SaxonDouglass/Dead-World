@@ -51,11 +51,19 @@ var lvls = [  //array of level data arrays
 
 ];
 
-//map 1-based tileset indices to 0-based indices
+//map 1-based tileset indices to 0-based indices and convert to 2D array
 for (var i = 0; i < lvls.length; i++)
 {
-	for(var j = 0; j < 225; j++)
-		lvls[i].layers[0].data[j]--;
+       	var data = new Array(15);
+       	var size = 15;
+       	for(var x = 0; x < size; ++x) {
+       		data[x] = new Array(15);
+       		for(var y = 0; y < size; ++y) {
+       			data[x][y] = lvls[i].layers[0].data[x + y*size] - 1;
+       		}
+       	}
+       	
+       	lvls[i].layers[0].data = data;
 }	
 
 var randLevel = function ()
@@ -199,7 +207,6 @@ exports.create = function(spec,my) {
 	    that.overworld = { 'data': level.layers[0].data,
 	                       'tileset': 0,//level.tilesets[0]['name'],
 						 };
-	    //that.overworld.data[7][that.id] = 1;
 	}
 
     if (spec.underworld) {
