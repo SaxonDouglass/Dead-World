@@ -182,21 +182,21 @@ var tiledata = new Array();
         'label': 'spade',
         'tier': 1,
         'isEquipable': true,
-        'carrySprite': 40,
+        'carrySprite': 32,
     });
 
     tiledata[129] = tile({
         'label': 'pick',
         'tier': 2,
         'isEquipable': true,
-        'carrySprite': 41,
+        'carrySprite': 33,
     });    
 
     tiledata[130] = tile({
         'label': 'sword',
         'tier': 3,
         'isEquipable': true,
-        'carrySprite': 42,
+        'carrySprite': 34,
     });
     
 }());
