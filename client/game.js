@@ -145,9 +145,10 @@ function onKeyUp(key) {
 	}
 }
 
+var filetype;
+
 function soundInit() {
 	    // determine browser
-	    var filetype;
 	    agent = navigator.userAgent.toLowerCase();
 	
 	    // adjust for browser
@@ -165,6 +166,7 @@ function soundInit() {
 	
 	    // set references
 	    SoundJS.onLoadQueueComplete = soundDoneLoading;
+	    SoundJS.onSoundLoadComplete = soundLoaded;
         jQuery('#game').get(0).onselectstart=function(){return false};
         jQuery('#game').get(0).onmousedown=function(){return false};
 	
@@ -194,6 +196,13 @@ function soundDoneLoading() {
 	    // start the music
 	    SoundJS.play("titletheme", null, 0.3, true);
     }
+    
+function soundLoaded(s,name) {
+	console.log(name);
+	if(name == 'damage' || name == 'death') {
+		SoundJS.play(name, null, 0.1, true);
+	}
+}
 
 function world2canvasX(worldX) {return worldX * canvas.width / worldWidth;}
 function world2canvasY(worldY) {return worldY * canvas.height / worldHeight;}
