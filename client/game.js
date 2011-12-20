@@ -175,20 +175,13 @@ function soundInit() {
 		    {name:"titletheme", src:"/snd/music/00 - titletheme" + filetype, instances:1},
 		    {name:"deadworldblues", src:"/snd/music/01 - deadworldblues" + filetype, instances:1},
 		    {name:"overworld", src:"/snd/music/02 - overworld" + filetype, instances:1},
-		    {name:"dungeon1", src:"/snd/music/03 - dungeon1" + filetype, instances:1},
-		    {name:"dungeon2", src:"/snd/music/04 - dungeon2" + filetype, instances:1},
-		    {name:"dungeon3", src:"/snd/music/05 - dungeon3" + filetype, instances:1},
-		    {name:"shrinemusic", src:"/snd/music/06 - shrinemusic" + filetype, instances:1},
 		    
 		    {name:"build", src:"/snd/sfx/build" + filetype, instances:1},
-		    {name:"overworldambience", src:"/snd/sfx/overworldambience" + filetype, instances:1},
 		    {name:"playerdamagecry", src:"/snd/sfx/playerdamagecry" + filetype, instances:1},
 		    {name:"playerdeathcry", src:"/snd/sfx/playerdeathcry" + filetype, instances:1},
 		    {name:"weaponimpact", src:"/snd/sfx/weaponimpact" + filetype, instances:1},
-		    {name:"lowtiermonsteralert", src:"/snd/sfx/lowtiermonsteralert" + filetype, instances:1},
 		    {name:"lowtiermonsterdeath", src:"/snd/sfx/lowtiermonsterdeath" + filetype, instances:1},
-		    {name:"hightiermonsteralert", src:"/snd/sfx/hightiermonsteralert" + filetype, instances:1},
-		    {name:"hightiermonsterdeath", src:"/snd/sfx/hightiermonsterdeath" + filetype, instances:1},
+		    {name:"midtiermonsterdeath", src:"/snd/sfx/midtiermonsterdeath" + filetype, instances:1},
 		]);
     }
 	

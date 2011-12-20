@@ -245,7 +245,7 @@ var character = function (spec, my) {
 	        }
 			
 			if(pixie) {
-				pixie.gotoAndStop(37 - health);
+				pixie.gotoAndStop(45 - health);
 			}
 		}
 	}
