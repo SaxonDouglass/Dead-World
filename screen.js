@@ -197,9 +197,9 @@ exports.create = function(spec,my) {
     } else {
         var level = randLevel();
 	    that.overworld = { 'data': level.layers[0].data,
-	                       'tileset': level.tilesets[0]['name'],
+	                       'tileset': 0,//level.tilesets[0]['name'],
 						 };
-	    that.overworld.data[7][that.id] = 1;
+	    //that.overworld.data[7][that.id] = 1;
 	}
 
     if (spec.underworld) {
