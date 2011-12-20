@@ -26,3 +26,6 @@ body {
     padding: 0;
 }
 
+a {
+	float: right;
+}
