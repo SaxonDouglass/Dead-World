@@ -99,7 +99,8 @@ var monster = function(spec, my) {
     that.die = function() {
         for (var i = world.monsters.length - 1; i >= 0; --i) {
             if (this == world.monsters[i]) {
-                SoundJS.play('lowtiermonsterdeath', SoundJS.INTERUPT_LATE, 0.8);
+            	SoundJS.add('monsterdeath','/snd/sfx/lowtiermonsterdeath'+filetype, 1);
+                //SoundJS.play('lowtiermonsterdeath', SoundJS.INTERUPT_LATE, 0.8);
                 world.monsters.splice(i, 1);
                 world.update();
             }
