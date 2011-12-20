@@ -35,7 +35,7 @@ var character = function (spec, my) {
 		});
 		
 		load = charSprite(sprite);
-		load.gotoAndStop(23);
+		load.gotoAndStop(31);
 		that.addChild(load);
 		
 		helm = charSprite(sprite);
