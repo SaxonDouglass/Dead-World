@@ -59,7 +59,7 @@ var character = function (spec, my) {
 		that.addChild(tool);
 
 		pixie = charSprite(sprite);
-		pixie.gotoAndStop(37 - health);
+		pixie.gotoAndStop(45 - health);
 		that.addChild(pixie);
 	}
 	img.src = "/img/spritesheet.png";
