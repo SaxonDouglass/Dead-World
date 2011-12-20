@@ -201,7 +201,7 @@ function soundLoaded(s,name) {
 	console.log(name);
 	if(name == 'damage' || name == 'death') {
 		SoundJS.play(name, null, 0.1, true);
-	} if(name == 'monsterdeath') {
+	} if(name == 'lowmonsterdeath' || name == 'midmonsterdeath') {
 		SoundJS.play(name, null, 0.8, true);
 	}
 }
