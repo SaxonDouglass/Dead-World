@@ -20,7 +20,7 @@ var character = function (spec, my) {
     that = new Container();
     
     that.x = 7.5;
-    that.y = 7.5;
+    that.y = 14.5;
 	that.invuln = 10;
 	that.facing = 'down';
 

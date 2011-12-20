@@ -83,37 +83,37 @@ var tiledata = new Array();
     tiledata[48] = tile({
         'label': 'logs',
         'isCarryable': true,
-        'carrySprite': 8,
+        'carrySprite': 24,
     });
 
     tiledata[49] = tile({
         'label': 'stone',
         'isCarryable': true,
-        'carrySprite': 9,
+        'carrySprite': 25,
     });
     
     tiledata[50] = tile({
         'label': 'ore',
         'isCarryable': true,
-        'carrySprite': 13,
+        'carrySprite': 29,
     });
 
     tiledata[51] = tile({
         'label': 'maize',
         'isCarryable': true,
-        'carrySprite': 11,
+        'carrySprite': 27,
     });
     
     tiledata[64] = tile({
         'label': 'planks',
         'isCarryable': true,
-        'carrySprite': 10,
+        'carrySprite': 26,
     });
     
     tiledata[66] = tile({
         'label': 'ingot',
         'isCarryable': true,
-        'carrySprite': 14,
+        'carrySprite': 30,
     });
 
     tiledata[67] = tile({
@@ -123,13 +123,13 @@ var tiledata = new Array();
             world.setTile(x, y, 0);
             player.hit(-5);
         },
-        'carrySprite': 15,
+        'carrySprite': 31,
     });
     
     tiledata[80] = tile({
         'label': 'pine cone',
         'isCarryable': true,
-        'carrySprite': 16,
+        'carrySprite': 32,
     });
     
     tiledata[81] = tile({
@@ -138,13 +138,13 @@ var tiledata = new Array();
         'onPutdown': function (x, y) {
             world.setTile(x, y, 32);
         },
-        'carrySprite': 17,
+        'carrySprite': 33,
     });
 
     tiledata[83] = tile({
         'label': 'seeds',
         'isCarryable': true,
-        'carrySprite': 12,
+        'carrySprite': 28,
     });
 
     tiledata[96] = tile({
@@ -177,21 +177,21 @@ var tiledata = new Array();
         'label': 'spade',
         'tier': 1,
         'isEquipable': true,
-        'carrySprite': 24,
+        'carrySprite': 40,
     });
 
     tiledata[129] = tile({
         'label': 'pick',
         'tier': 2,
         'isEquipable': true,
-        'carrySprite': 25,
+        'carrySprite': 41,
     });    
 
     tiledata[130] = tile({
         'label': 'sword',
         'tier': 3,
         'isEquipable': true,
-        'carrySprite': 26,
+        'carrySprite': 42,
     });
     
 }());

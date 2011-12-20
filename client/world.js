@@ -88,6 +88,7 @@ var world = function (spec, my) {
     
     that.update = function () {
 		if(this.screen) {
+		    console.log('obj:'+tilesets[0]);
 			if(tilesets[this.screen.overworld.tileset]) {
 				this.removeAllChildren();
 				for(var y = 0; y < 15; ++y) {
@@ -127,6 +128,8 @@ var world = function (spec, my) {
     }
     
     socket.on('screen', function (newScreen) {
+        console.log(newScreen.overworld.data);
+		console.log('tileset: '+newScreen.overworld.tileset);
         if (!that.screen) {
             that.screen = newScreen;
             that.update();
