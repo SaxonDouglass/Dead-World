@@ -1,26 +1,38 @@
 var monster = function(spec, my) {
-	var that;
+	var that, anim, spriteStart;
     my = my || {};
     
     that = new Container();
     
-    that.shape = new Shape();
     that.x = spec.x;
     that.y = spec.y;
 	that.dir = spec.dir || UP;
-    that.addChild(that.shape);
-    
-    (function () {
-        var g = that.shape.graphics;
-        g.beginFill(Graphics.getRGB(128, 0, 0));
-		g.drawCircle(0, 0, 0.5);
-	}());
 	
-	that.turn = function() {
-		this.dir++;
-		if(this.dir > 3) this.dir = 0;
-	}
+	this.type = spec.type || 0;
+	spriteStart = this.type*4;
 
+    var img = new Image();
+    img.onload = function() {
+    	var sprite = new SpriteSheet({
+    		images: [img],
+    		frames: {width: 48, height: 48},
+    	});
+    	
+    	anim = new BitmapAnimation(sprite);
+    	anim.scaleX = 1/48;
+    	anim.scaleY = 1/48;
+    	anim.regX = 24;
+    	anim.regY = 24;
+    	anim.gotoAndStop(that.dir + spriteStart);
+    	that.addChild(anim);
+    }
+    img.src = "/img/monsters.png"
+    
+    that.turn = function() {
+    	this.dir++;
+    	if(this.dir > 3) this.dir = 0;
+    }
+    
     that.tick = function() {
         if(this.dir == LEFT) {
             if (world.collideRect(this.x - 0.6, this.y - 0.4, 0.8, 0.8)) {
@@ -68,6 +80,10 @@ var monster = function(spec, my) {
 
 		if(this.collideRect(player.x-0.4, player.y-0.4, 0.8, 0.8)) {
 			player.hit(1);
+		}
+		
+		if(anim) {
+			anim.gotoAndStop(this.dir+spriteStart)
 		}
     }
 
