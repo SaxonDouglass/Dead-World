@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="15" tilewidth="48" tileheight="48">
+ <tileset firstgid="1" source="desert.tsx"/>
+ <layer name="Tile Layer 1" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJylkksOgCAMRPEIflD8LcAreP+zWRJMJk1tURcvJISZlmk359zAmIgGCMKbmejZu1pa0KYf2hqSofVEB4xKXS2XnMf64BEEv5OI5UQfXkPCQ53IvCxtYL1q/5bu7l6zx16QMsU7nMFh/PftfNFf01p79qUuanmeUqZ81zILcQEAeAkF
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="15" height="15">
+  <object type="0" x="96" y="288" width="48" height="48"/>
+  <object type="0" x="432" y="576" width="48" height="48"/>
+  <object type="0" x="480" y="96" width="48" height="48"/>
+ </objectgroup>
+</map>
