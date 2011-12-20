@@ -46,7 +46,7 @@ var tiledata = new Array();
         'label': 'air',
     });
     
-    for (var i = 1; i < 16; ++i) {
+    for (var i = 1; i < 32; ++i) {
         tiledata[i] = tile({
             'label': 'edge',
             'isSolid': true,
