@@ -83,37 +83,37 @@ var tiledata = new Array();
     tiledata[48] = tile({
         'label': 'logs',
         'isCarryable': true,
-        'carrySprite': 24,
+        'carrySprite': 16,
     });
 
     tiledata[49] = tile({
         'label': 'stone',
         'isCarryable': true,
-        'carrySprite': 25,
+        'carrySprite': 17,
     });
     
     tiledata[50] = tile({
         'label': 'ore',
         'isCarryable': true,
-        'carrySprite': 29,
+        'carrySprite': 21,
     });
 
     tiledata[51] = tile({
         'label': 'maize',
         'isCarryable': true,
-        'carrySprite': 27,
+        'carrySprite': 19,
     });
     
     tiledata[64] = tile({
         'label': 'planks',
         'isCarryable': true,
-        'carrySprite': 26,
+        'carrySprite': 18,
     });
     
     tiledata[66] = tile({
         'label': 'ingot',
         'isCarryable': true,
-        'carrySprite': 30,
+        'carrySprite': 22,
     });
 
     tiledata[67] = tile({
@@ -123,13 +123,13 @@ var tiledata = new Array();
             world.setTile(x, y, 0);
             player.hit(-5);
         },
-        'carrySprite': 31,
+        'carrySprite': 23,
     });
     
     tiledata[80] = tile({
         'label': 'pine cone',
         'isCarryable': true,
-        'carrySprite': 32,
+        'carrySprite': 24,
     });
     
     tiledata[81] = tile({
@@ -138,13 +138,13 @@ var tiledata = new Array();
         'onPutdown': function (x, y) {
             world.setTile(x, y, 32);
         },
-        'carrySprite': 33,
+        'carrySprite': 25,
     });
 
     tiledata[83] = tile({
         'label': 'seeds',
         'isCarryable': true,
-        'carrySprite': 28,
+        'carrySprite': 20,
     });
 
     tiledata[96] = tile({
