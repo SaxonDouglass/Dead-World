@@ -652,11 +652,11 @@ exports.create = function(spec,my) {
 	if(spec.monsters) {
 		that.monsters = spec.monsters;
 	} else {
-	    that.monsters = {};
+	    that.monsters = [];
 	    for (var m = 0; m < level.layers[1].objects.length; ++m) {
 	        that.monsters[m] = {
-	            x: level.layers[1].objects[m].x,
-	            y: level.layers[1].objects[m].y,
+	            x: level.layers[1].objects[m].x/48,
+	            y: level.layers[1].objects[m].y/48,
 	            type: level.layers[1].objects[m].type,
 	        };
 	    }

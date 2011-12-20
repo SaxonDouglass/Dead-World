@@ -8,8 +8,8 @@ var monster = function(spec, my) {
     that.y = spec.y;
 	that.dir = spec.dir || UP;
 	
-	this.type = spec.type || 0;
-	spriteStart = this.type*4;
+	that.type = spec.type || 0;
+	spriteStart = that.type*4;
 
     var img = new Image();
     img.onload = function() {
@@ -99,7 +99,12 @@ var monster = function(spec, my) {
     that.die = function() {
         for (var i = world.monsters.length - 1; i >= 0; --i) {
             if (this == world.monsters[i]) {
-                SoundJS.play('lowtiermonsterdeath', SoundJS.INTERUPT_LATE, 0.8);
+            	if(this.type == 0){
+            		SoundJS.add('lowmonsterdeath','/snd/sfx/lowtiermonsterdeath'+filetype, 1);
+            	} else {
+            		SoundJS.add('midmonsterdeath','/snd/sfx/midtiermonsterdeath'+filetype, 1);
+            	}
+                //SoundJS.play('lowtiermonsterdeath', SoundJS.INTERUPT_LATE, 0.8);
                 world.monsters.splice(i, 1);
                 world.update();
             }

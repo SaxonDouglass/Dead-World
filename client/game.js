@@ -145,9 +145,10 @@ function onKeyUp(key) {
 	}
 }
 
+var filetype;
+
 function soundInit() {
 	    // determine browser
-	    var filetype;
 	    agent = navigator.userAgent.toLowerCase();
 	
 	    // adjust for browser
@@ -165,6 +166,7 @@ function soundInit() {
 	
 	    // set references
 	    SoundJS.onLoadQueueComplete = soundDoneLoading;
+	    SoundJS.onSoundLoadComplete = soundLoaded;
         jQuery('#game').get(0).onselectstart=function(){return false};
         jQuery('#game').get(0).onmousedown=function(){return false};
 	
@@ -173,20 +175,13 @@ function soundInit() {
 		    {name:"titletheme", src:"/snd/music/00 - titletheme" + filetype, instances:1},
 		    {name:"deadworldblues", src:"/snd/music/01 - deadworldblues" + filetype, instances:1},
 		    {name:"overworld", src:"/snd/music/02 - overworld" + filetype, instances:1},
-		    {name:"dungeon1", src:"/snd/music/03 - dungeon1" + filetype, instances:1},
-		    {name:"dungeon2", src:"/snd/music/04 - dungeon2" + filetype, instances:1},
-		    {name:"dungeon3", src:"/snd/music/05 - dungeon3" + filetype, instances:1},
-		    {name:"shrinemusic", src:"/snd/music/06 - shrinemusic" + filetype, instances:1},
 		    
 		    {name:"build", src:"/snd/sfx/build" + filetype, instances:1},
-		    {name:"overworldambience", src:"/snd/sfx/overworldambience" + filetype, instances:1},
 		    {name:"playerdamagecry", src:"/snd/sfx/playerdamagecry" + filetype, instances:1},
 		    {name:"playerdeathcry", src:"/snd/sfx/playerdeathcry" + filetype, instances:1},
 		    {name:"weaponimpact", src:"/snd/sfx/weaponimpact" + filetype, instances:1},
-		    {name:"lowtiermonsteralert", src:"/snd/sfx/lowtiermonsteralert" + filetype, instances:1},
 		    {name:"lowtiermonsterdeath", src:"/snd/sfx/lowtiermonsterdeath" + filetype, instances:1},
-		    {name:"hightiermonsteralert", src:"/snd/sfx/hightiermonsteralert" + filetype, instances:1},
-		    {name:"hightiermonsterdeath", src:"/snd/sfx/hightiermonsterdeath" + filetype, instances:1},
+		    {name:"midtiermonsterdeath", src:"/snd/sfx/midtiermonsterdeath" + filetype, instances:1},
 		]);
     }
 	
@@ -194,6 +189,15 @@ function soundDoneLoading() {
 	    // start the music
 	    SoundJS.play("titletheme", null, 0.3, true);
     }
+    
+function soundLoaded(s,name) {
+	console.log(name);
+	if(name == 'damage' || name == 'death') {
+		SoundJS.play(name, null, 0.1, true);
+	} if(name == 'lowmonsterdeath' || name == 'midmonsterdeath') {
+		SoundJS.play(name, null, 0.8, true);
+	}
+}
 
 function world2canvasX(worldX) {return worldX * canvas.width / worldWidth;}
 function world2canvasY(worldY) {return worldY * canvas.height / worldHeight;}

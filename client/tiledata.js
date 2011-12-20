@@ -173,6 +173,11 @@ var tiledata = new Array();
         });
     }
     
+    tiledata[110] = tile({
+        'label': 'farm',
+        'isSolid': true,
+    });
+    
     tiledata[128] = tile({
         'label': 'spade',
         'tier': 1,

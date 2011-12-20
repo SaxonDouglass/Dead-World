@@ -59,7 +59,7 @@ var character = function (spec, my) {
 		that.addChild(tool);
 
 		pixie = charSprite(sprite);
-		pixie.gotoAndStop(53 - health);
+		pixie.gotoAndStop(45 - health);
 		that.addChild(pixie);
 	}
 	img.src = "/img/spritesheet.png";
@@ -232,18 +232,20 @@ var character = function (spec, my) {
 			health -= dmg;
 			this.invuln = 20;
 			if(health <= 0) {
-			    SoundJS.play('playerdeathcry', SoundJS.INTERUPT_LATE, 0.1);
+				SoundJS.add('death', '/snd/sfx/playerdeathcry'+filetype, 1);
+			    //SoundJS.play('playerdeathcry', SoundJS.INTERUPT_LATE, 0.1);
 	            SoundJS.play("deadworldblues", null, 0.5, true);
 				health = MAX_HEALTH;
 				this.x = 7;
 				this.y = 7;
 				world.reset();
 			} else if (dmg > 0) {
-			    SoundJS.play('playerdamagecry', SoundJS.INTERUPT_LATE, 0.1);
+				SoundJS.add('damage', '/snd/sfx/playerdamagecry'+filetype, 1);
+			    //SoundJS.play('playerdamagecry', SoundJS.INTERUPT_LATE, 0.1, true);
 	        }
 			
 			if(pixie) {
-				pixie.gotoAndStop(37 - health);
+				pixie.gotoAndStop(45 - health);
 			}
 		}
 	}
