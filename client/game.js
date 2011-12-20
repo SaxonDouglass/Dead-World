@@ -11,9 +11,9 @@ var KEYCODE_D = 68;
 var KEYCODE_E = 69;
 var KEYCODE_SPACE = 32;
 
-var UP = 0;
+var UP = 2;
 var LEFT = 1;
-var DOWN = 2;
+var DOWN = 0;
 var RIGHT = 3;
 
 var MAX_HEALTH = 5;
