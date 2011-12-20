@@ -7,7 +7,7 @@ var app = require('express').createServer(),
 var player = require('./player.js'),
     screen = require('./screen.js');
 
-var level = require{'/level.js'};
+//var level = require('./level.js');
 	
 		
 	

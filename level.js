@@ -1,11 +1,11 @@
 //Array of levels
 	
-var lvls = {  //array of level data arrays
+var lvls = [  //array of level data arrays
 
 { "height":15,
  "layers":[
         {
-         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 33, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 33, 1, 1, 1, 33, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 33, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 110, 105, 105, 105, 105, 105, 105, 105, 105, 109, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         "data":[28, 20, 20, 20, 20, 23, 1, 1, 1, 24, 20, 20, 20, 20, 25, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 17, 19, 1, 1, 1, 34, 1, 1, 1, 1, 1, 1, 1, 33, 1, 17, 19, 34, 1, 1, 1, 1, 1, 1, 1, 33, 1, 1, 1, 1, 17, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 17, 23, 1, 1, 1, 1, 1, 15, 6, 1, 1, 1, 33, 1, 1, 24, 1, 1, 1, 1, 1, 1, 35, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 3, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 14, 1, 1, 1, 1, 34, 1, 1, 22, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 21, 19, 1, 34, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 17, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 17, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 34, 1, 17, 19, 1, 1, 34, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 17, 27, 18, 18, 18, 18, 22, 1, 1, 1, 21, 18, 18, 18, 18, 26],
          "height":15,
          "name":"Tile Layer 1",
          "opacity":1,
@@ -20,32 +20,32 @@ var lvls = {  //array of level data arrays
     {
 
     },
- "tileheight":16,
+ "tileheight":48,
  "tilesets":[
         {
          "firstgid":1,
-         "image":"client\/img\/tileset\/desert_original.png",
-         "imageheight":256,
-         "imagewidth":256,
+         "image":"..\/client\/img\/tileset\/desert.png",
+         "imageheight":768,
+         "imagewidth":768,
          "margin":0,
-         "name":"desert_original",
+         "name":"desert",
          "properties":
             {
 
             },
          "spacing":0,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":48,
+         "tilewidth":48
         }],
- "tilewidth":16,
+ "tilewidth":48,
  "version":1,
  "width":15
-}//,
+},
 //paste new Tiled levels here!
 
 
 
-}
+];
 
 //map 1-based tileset indices to 0-based indices
 for (var i = 0; i < lvls.length; i++)
@@ -54,7 +54,7 @@ for (var i = 0; i < lvls.length; i++)
 		lvls[i].layers[0].data[j]--;
 }	
 
-function randlevel()
+exports.randLevel = function ()
 {
 	return lvls[Math.floor(Math.random() * lvls.length)].layers[0].data; 
 }
